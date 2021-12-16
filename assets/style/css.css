@@ -1,0 +1,432 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	padding:0px;
+	margin:0px;
+}
+body{
+	font-family: 'Montserrat', sans-serif;
+}
+p{
+	font-weight:800;
+}
+.wrapper{
+	width:100%;
+	height: auto;
+	border:none;
+	margin:auto;
+	font-size:16px;
+}
+
+.header{
+	width:100%;
+	height:300px;
+}
+
+.slide{
+	width:1200px;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-top: 0px;
+	border-radius: 10px;
+	position: relative;
+}
+.chuyen-slide{
+	width: 5000px;
+	transition: all 0.5s;
+}
+.chuyen-slide img{
+	width: 1200px;
+	height: 300px;
+	float:left;
+	margin-top: 4px;
+}
+.dieuhuong{
+	position: absolute;
+	color: white;
+	font-size: 40px;
+	top: 48%;
+	padding-left: 20px;
+}
+.dieuhuong i:last-child{
+	position: relative;
+	left: 1050px;
+}
+/*==============header============*/
+.menu{
+	width:100%;
+	height:40px;
+	background:#202020;
+
+}
+.menu ul{
+	width:1250px;
+	height:150px;
+	margin-left:50px;
+
+
+}
+.fa-home:before {
+	content: "\f015";
+	font-size: 25px;
+	color: #f7922a;
+	margin-right:10px;
+}
+.menu ul li{
+	line-height:40px;
+	display:inline-table;
+	list-style:none;
+	margin-left:10px;
+}
+.menu ul li a{
+	display:block;
+	color:#f7922a;
+	text-decoration:none;
+	display:inline-table;
+}
+.menu a:hover{
+	background:#f1f1f1;
+	color:#333;
+}
+.menu #searchf{
+	width:200px;
+	height:20px;
+	/*box-sizing:border-box;
+	border:1px solid #666;
+	border-radius:4px;
+	outline:none;*/
+}
+.menu #searchbtn{
+	box-sizing:border-box;
+	border:1px solid #666;
+	border-radius:4px;
+	outline:none;
+
+}
+.searchform{
+	float:right;
+	margin-top:-30px;
+	margin-right:10px;
+}
+.dangky{
+	margin-top:37px;
+	margin-left:50px;
+}
+.dangky table tr td{
+	height:48px;
+}
+/*============menu===============*/
+.content{
+	margin:auto;
+	width:1200px;
+	height:auto;
+
+}
+.left{
+	display:block;
+	width: 197px;
+	height: auto;
+	border:1px solid #CCC;
+	float:left;
+	margin-top: 58px;
+}
+.danhsachsanpham ul{
+
+	width:100%;
+	height:auto;
+	list-style:none;
+	text-align:center;
+}
+.fa-bars:before {
+	content: "\f0c9";
+	margin-right: 10px;
+}
+.danhsacsanpham ul li{
+	border:1px solid #e8e8e8;
+	width:100%;
+	height:auto;
+}
+.danhsachsanpham a{
+	line-height: 29px;
+	color:#000;
+	text-decoration:none;
+	display:block;
+	margin-top:10px;
+}
+.danhsachsanpham ul li a:hover{
+
+	color:#F00;
+}
+.formdangnhap{
+	margin-left:50px;
+	margin-top:40px;
+}
+/*===========noidung-left===============*/
+.right{
+	width:995px;
+	height:auto;
+	border:none;
+	float:right;
+	margin-top:20px;
+}
+.sanphamall ul{
+	background:#FFF;
+	width:auto;
+	list-style:none;
+}
+.sanphamall ul li{
+	width: 320px;
+	height:350px;
+	float:left;
+	margin-left: 7px;
+	background:#FFF;
+	margin-top:30px;
+	border:1px solid #CCC;
+	text-align:center;
+}
+.sanphamall ul li img{
+	margin-top:20px;
+	transition: all 1s ease;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+.sanphamall ul li img:hover{
+	transform: scale(1.5,1.5);
+	-webkit-transform: scale(1.5,1.5);
+	-moz-transform: scale(1.5,1.5);
+	-o-transform: scale(1.5,1.5);
+	-ms-transform: scale(1.5,1.5);
+}
+.sanphamall ul li a{
+	margin-top:50px;
+	text-decoration:none;
+}
+.sanphamall  p{
+	color:#000;
+}
+.chitiet{
+	width: 995px;
+	height: auto;
+	float: left;
+	margin-top:37px;
+}
+.giasp{
+	font-weight: bold;
+	font-size: 30px;
+	color: aqua;
+}
+.phantrang{
+	text-decoration: none;
+	font-weight: bold;
+	margin-top: 5px;
+	text-align: center;
+	display: block;
+	margin-right: 5px;
+	margin-bottom: 10px;
+}
+.phantrang a:hover{
+	background-color: #54ffff;
+	color: red;
+
+}
+.phantrang a{
+	margin-right: 3px;
+
+}
+.chitietsp{
+	padding-top: 20px;
+	text-align: center;
+	margin: 5px;
+}
+.trai{
+	width: 400px;
+	float: left;
+	display: block;
+	padding-right: 15px;
+}
+.phai{
+	width: 550px;
+	float: left;
+	display: block;
+}
+.tren{
+	width: 995px;
+	height: 363px;
+	margin-left: 33px;
+}
+.register{
+	margin-top: 35px;
+	width: 774px;
+	margin-left: 109px;
+}
+.login1{
+	margin-top: 35px;
+	width: 774px;
+	margin-left: 109px;
+}
+.repass{
+	margin-top: 35px;
+	width: 774px;
+	margin-left: 109px;
+}
+.forgot{
+	margin-top: 35px;
+	width: 774px;
+	margin-left: 109px;
+}
+.giohang{
+	margin-right:250px;
+	float:right;
+}
+
+
+.giohang1{
+	width: 80px;
+	height: 20px;
+	margin-right: 273px;
+	float:right;
+	text-align: center;
+	margin-top: 26px;
+}
+.giohang p{
+	float: left;
+	text-align: center;
+}
+.fa-cart-arrow-down:before {
+	content: "\f218";
+	font-size: 50px;
+	color: lightseagreen;
+
+}
+.fa-cart-arrow-down{
+	width: 50px;
+	height: 50px;
+}
+.giohang i{
+	width: 50px;
+	height: 50px;
+}
+.cart{
+	width: 800px;
+	margin-top: 39px;
+	margin-left: 42px;
+}
+table {
+	border-collapse:collapse;
+}
+table,th,td{
+	border:1px solid #999;
+}
+.giasp{
+	text-align:center;
+	color: #2ca0cc;
+	font-weight:800;
+	margin-top: 12px;
+}
+.thongso{
+	text-align:center;
+	color: #84a7cc;
+	font-weight:800;
+}
+.tensp{
+	text-align:center;
+	color: #c8ccb1;
+	font-weight:800;
+}
+.chitiet{
+	color: #c84ccc;
+	font-weight:800;
+}
+/*===========noidung-right===============*/
+
+.clear{
+	clear:both;
+}
+.footer{
+	background:#202020;
+	width:100%;
+	height:auto;
+	border-top:3px solid #f7922a;
+	overflow:auto;
+	padding-top: 31px;
+}
+.fb-page{
+	margin-left:200px;
+	margin-top:40px;
+}
+.footer .footer1 p{
+	font-size:15px;
+	color:#f7922a;
+	font-weight:900;
+	text-align:center;
+}
+.footer .footer1{
+	float:right;
+	margin-right:200px;
+	margin-top:20px;
+
+}
+.footer1 ul li{
+	list-style:none;
+	line-height:30px;
+}
+.footer1 ul li a{
+	text-decoration:none;
+	color:#FFF;
+}
+.fa-clipboard-check:before {
+	content: "\f46c";
+	margin-right: 5px;
+	font-size: 20px;
+}
+.footer .footer2{
+	float:right;
+	margin-right:50px;
+	margin-top:20px;
+}
+.footer .footer2 p{
+	font-size:15px;
+	color:#f7922a;
+	font-weight:900;
+	text-align:center;
+}
+.footer .footer2 ul li{
+	list-style:none;
+	text-decoration:none;
+	color:#f7922a;
+	font-weight:900;
+	text-align:center;
+	margin-top:5px;
+}
+.fa-shopping-cart:before {
+	content: "\f07a";
+	margin-right: 10px;
+	font-size: 20px;
+}
+.fa-fighter-jet:before {
+	content: "\f0fb";
+	font-size: 20px;
+	margin-right: 5px;
+}
+.clear{
+	clear:both;
+}
+.footer .copy{
+	width:100%;
+	height:20px;
+	display:inline-table;
+	background:#333;
+	font-size:12px;
+	text-align:center;
+}
+.copy p{
+	color:#bbbbbb;
+}
+/*===========footer===============*/
+
+
+
+
+
+
