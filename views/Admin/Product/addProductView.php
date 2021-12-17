@@ -42,31 +42,32 @@ if (!isset($_SESSION['login_true'])) {
                         </div>
                         <div class="form-group">
                             <label>Chi Tiết</label>
-                            <textarea class="form-control" rows="3" name="ChiTiet" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Images</label>
-                            <input type="file" name="Images" multiple required id="upload" onchange="hienthianh()"/>
-                            <div id="displayImg" class="anh"></div>
+                            <textarea class="form-control" rows="10" name="ChiTiet" id="editor1" required></textarea>
                         </div>
                         <div class="form-group">
                             <label>Nhà Sản Xuất</label>
-                            <?php foreach ($row_producer as $row): ?>
-                                <label class="radio-inline">
-                                    <input name="NSX" value="<?php echo $row[0]; ?>" checked=""
-                                           type="radio"><?php echo $row[1]; ?>
-                                </label>
-                            <?php endforeach; ?>
+                            <select class="form-control" name="MaNSX" id="MaNSX">
+                                <?php foreach ($row_producer as $key => $value): ?>
+                                    <option value="<?= $value[0] ?>"><?= $value[1] ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Loại</label>
-                            <?php foreach ($row_type as $row): ?>
-                                <label class="radio-inline">
-                                    <input name="Loai" value="<?php echo $row[0]; ?>" checked=""
-                                           type="radio"><?php echo $row[1]; ?>
-                                </label>
-                            <?php endforeach; ?>
+                            <select class="form-control" name="Loai" id="Loai">
+                                <?php foreach ($row_type as $key => $value): ?>
+                                    <option value="<?= $value[0] ?>"><?= $value[1] ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
+                        <div class="form-group">
+                            <label>Images</label>
+                            <input type="file" id="imagesHotel" name="images[]" multiple data-allow-reorder="true"
+                                   data-max-file-size="3MB" data-max-files="5">
+                            <div id="preview"></div>
+                            <div id="inputIMG"></div>
+                        </div>
+                        <br>
                         <button type="submit" class="btn btn-default">Thêm Sản Phẩm</button>
                         <button type="reset" class="btn btn-default">Reset</button>
                         <form>

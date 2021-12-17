@@ -28,6 +28,8 @@ $oRoute->post('repass', 'MyProject\Controller\ForgotController@resertPass');
 //$oRoute->post('update', 'MyProject\Controller\ManagerController@updateUser');
 //admin-login
 $oRoute->post('login-admin', 'MyProject\Controller\AdminController@loginUser');
+$oRoute->get('dashboard', 'MyProject\Controller\AdminController@getViewDashboard');
+$oRoute->post('a.upload', 'MyProject\Controller\UploadController@handleUpload');
 //admin-product
 $oRoute->get('admin', 'MyProject\Controller\AdminController@viewAdmin');
 $oRoute->get('login-view', 'MyProject\Controller\AdminController@getViewLoginAdmin');

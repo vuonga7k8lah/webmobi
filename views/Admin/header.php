@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href="<?php echo \MyProject\Core\URL::uri();?>">
+    <base href="<?php use MyProject\Core\App;
+
+    echo \MyProject\Core\URL::uri();?>">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,6 +28,12 @@
     <link href="./assets/admin/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./assets/style/print.css"/>
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Itim|Lobster|Montserrat:500|Noto+Serif|Nunito|Patrick+Hand|Roboto+Mono:100,100i,300,300i,400,400i,500,500i,700,700i|Roboto+Slab|Saira" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<!--    --><?php
+//    echo '<script>
+//    let GLOBAL=' . json_encode(App::get("config/app")) . '
+//</script>';
+//    ?>
 </head>
 
 <body>

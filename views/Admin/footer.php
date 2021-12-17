@@ -8,6 +8,7 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="./assets/admin/dist/js/sb-admin-2.js"></script>
+<script src="./assets/admin/ajaxLoadIMG.js"></script>
 
 <!-- DataTables JavaScript -->
 <script src="./assets/admin/bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
@@ -36,6 +37,7 @@
         }
         document.getElementById('anhcu').style.display = "none";
     }
+    CKEDITOR.replace( 'editor1' );
 </script>
 </body>
 

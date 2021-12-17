@@ -21,11 +21,16 @@ class AdminController
         $data['password'] = md5($_POST['password']);
         if (AdminModel::loginUser($data)) {
             Session::set('login_true', 'true');
-            header('location:' . URL::uri('listProduct'));
+            header('location:' . URL::uri('dashboard'));
         } else {
             Session::set('error_login', 'Email OR PASSWORD KHONG DUNG');
             header('location:' . URL::uri('admin'));
         }
+    }
+
+    public function getViewDashboard()
+    {
+        require_once 'views/Admin/Dashboard/Dashboard.php';
     }
 
     public function viewAdmin()
