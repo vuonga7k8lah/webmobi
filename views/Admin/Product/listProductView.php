@@ -9,8 +9,10 @@ if (!isset($_SESSION['login_true'])) {
 } else {
     require_once 'views/Admin/header.php';
 //<!-- Navigation -->
+
     require_once 'views/Admin/navigation.php';
-    $row = AdminModel::selectAllProduct()->fetch_all();
+    $aRow = \MyProject\Model\ProductModel::getAllProduct();
+
     ?>
     <!-- Page Content -->
     <div id="page-wrapper">
@@ -52,18 +54,23 @@ if (!isset($_SESSION['login_true'])) {
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($row as $item): ?>
+                    <?php $i=1;
+                    foreach ($aRow as $item): ?>
                         <tr class="odd gradeX" align="center">
-                            <td><?php echo $item[0]; ?></td>
-                            <td><?php echo $item[1]; ?></td>
-                            <td><?php echo $item[2]; ?></td>
+                            <td><?php echo $i; ?></td>
                             <td><?php echo $item[3]; ?></td>
-                            <td><img src="<?php echo $item[4]; ?>" style="width: 50px; height: 50px"></td>
-                            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a
+                            <td><?php echo $item[5]; ?></td>
+                            <td><?= html_entity_decode(the_excerpt($item[4])) . '...' ?></td>
+                            <td style="float: left;width: 120px;text-align: center"><?php LoadAnh($item[6]); ?></td>
+                            <td class="center">
+                                <a      onclick="return confirm('Are you sure you want to delete this item?');"
                                         href="<?php echo URL::uri('deleteProduct'); ?>/<?= $item[0]; ?>">
-                                    Delete</a></td>
-                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a
-                                        href="<?php echo URL::uri('updateProduct'); ?>/<?= $item[0]; ?>">Edit</a>
+                                    <i class="fa fa-trash-o  fa-fw"></i>Delete
+                                </a>
+                            </td>
+                            <td class="center"><a
+                                        href="<?php echo URL::uri('updateProduct'); ?>/<?= $item[0]; ?>"
+                                        onclick="return confirm('Are you sure you want to edit this item?');"><i class="fa fa-pencil fa-fw"></i>Edit</a>
                             </td>
                         </tr>
                     <?php endforeach;

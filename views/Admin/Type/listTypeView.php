@@ -53,10 +53,12 @@ if (!isset($_SESSION['login_true'])) {
                         <tr class="odd gradeX" align="center">
                             <td><?php echo $item[0]; ?></td>
                             <td><?php echo $item[1]; ?></td>
-                            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a
-                                        href="<?php echo URL::uri('deleteType'); ?>/<?= $item[0]; ?>">Delete</a></td>
-                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a
-                                        href="<?php echo URL::uri('updateType'); ?>/<?= $item[0]; ?>">Edit</a></td>
+                            <td class="center"><a
+                                        onclick="return confirm('Are you sure you want to delete this item?');"
+                                        href="<?php echo URL::uri('deleteType'); ?>/<?= $item[0]; ?>"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
+                            <td class="center"><a
+                                        onclick="return confirm('Are you sure you want to edit this item?');"
+                                        href="<?php echo URL::uri('updateType'); ?>/<?= $item[0]; ?>"><i class="fa fa-pencil fa-fw"></i>Edit</a></td>
                         </tr>
                     <?php endforeach;
                     ?>

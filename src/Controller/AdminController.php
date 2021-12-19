@@ -36,7 +36,7 @@ class AdminController
     public function viewAdmin()
     {
         if (isset($_SESSION['login_true'])) {
-            header('location:' . URL::uri('listProduct'));
+            require_once 'views/Admin/Dashboard/Dashboard.php';
         }
         require_once 'views/Admin/Login/viewLogin.php';
     }
@@ -69,47 +69,25 @@ class AdminController
 
     public function updateProduct()
     {
-        $uploadedFiles = $_FILES['Images'];
-        $errors = uploadFilesUpdate($uploadedFiles);
-
-        if (!empty($errors)) {
-            print_r($errors);
-            exit;
-        } else {
-
-            $allFiles = updateFiles();
-            $data = $_POST;
-            $data['Images'] = URL::uri() . $allFiles[0];
-            $data['NSX'] = (int)$_POST['NSX'];
-            $data['Loai'] = (int)$_POST['Loai'];
-            if (AdminModel::updateProduct($data)) {
+        $aData = $_POST;
+        $aData['images'] = json_encode($_POST['images']);
+            if (AdminModel::updateProduct($aData)) {
                 Session::set('success_updateProduct', 'San Pham Da Update thanh cong');
                 header('location:' . URL::uri('listProduct'));
             }
-        }
     }
 
     public function addProduct()
     {
-        $uploadedFiles = $_FILES['Images'];
-        $errors = uploadFiles($uploadedFiles);
-        if (!empty($errors)) {
-            print_r($errors);
-            exit;
+        $aData = $_POST;
+        $aData['images'] = json_encode($_POST['images']);
+        if (AdminModel::isProductExists($aData['TenSP'])) {
+            Session::set('error_AddProduct', 'San Pham Da Ton Tai');
+            header('location:' . URL::uri('addProduct'));
         } else {
-            $allFiles = getAllFiles();
-            $data = $_POST;
-            $data['images'] = URL::uri() . $allFiles[0];
-            $data['NSX'] = (int)$_POST['NSX'];
-            $data['Loai'] = (int)$_POST['Loai'];
-            if (AdminModel::isProductExists($data['TenSP'])->num_rows > 0) {
-                Session::set('error_AddProduct', 'San Pham Da Ton Tai');
-                header('location:' . URL::uri('addProduct'));
-            } else {
-                if (AdminModel::addProduct($data)) {
-                    Session::set('success_addProduct', 'Sản Phẩm Tạo Thành Công');
-                    header('location:' . URL::uri('listProduct'));
-                }
+            if (AdminModel::addProduct($aData)) {
+                Session::set('success_addProduct', 'Sản Phẩm Tạo Thành Công');
+                header('location:' . URL::uri('listProduct'));
             }
         }
     }

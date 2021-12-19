@@ -57,11 +57,13 @@ if (!isset($_SESSION['login_true'])) {
                             <td><?php echo $item[1]; ?></td>
                             <td><?php echo $item[2]; ?></td>
                             <td><?php echo $item[3]; ?></td>
-                            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a
+                            <td class="center"><a
+                                        onclick="return confirm('Are you sure you want to delete this item?');"
                                         href="<?php echo URL::uri('deleteProducer'); ?>/<?= $item[0]; ?>">
-                                    Delete</a></td>
-                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a
-                                        href="<?php echo URL::uri('updateProducer'); ?>/<?= $item[0]; ?>">Edit</a>
+                                    <i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
+                            <td class="center"> <a
+                                        onclick="return confirm('Are you sure you want to edit this item?');"
+                                        href="<?php echo URL::uri('updateProducer'); ?>/<?= $item[0]; ?>"><i class="fa fa-pencil fa-fw"></i>Edit</a>
                             </td>
                         </tr>
                     <?php endforeach;

@@ -12,7 +12,7 @@ class AdminModel
     public static function loginUser($data): bool
     {
         $query = DB::makeConnection()->query("SELECT * FROM users where email='" . $data['email'] . "' and password='"
-            . $data['password'] . "' AND role=2 ");
+            . $data['password'] . "' AND role in(2,3)");
         return !empty($query) && ($query->num_rows > 0);
     }
 
@@ -22,37 +22,60 @@ class AdminModel
         return DB::makeConnection()->query("SELECT * FROM sanpham");
     }
 
-    public static function addProduct($data)
+    public static function addProduct($aData)
     {
-        $aValues = array_values($data);
-        $aValues = '"' . implode('","', $aValues) . '"';
-        $sql = sprintf('INSERT INTO sanpham(MaSP,TenSP,GiaBan,ChiTiet,MaNSX,MaLoai,Anh) VALUES(%s)', $aValues);
+        $sql
+            = "INSERT INTO `Product`(`MaSP`, `MaNSX`, `MaLoai`, `TenSP`, `ChiTiet`, `Gia`, `Anh`, `createDate`) VALUES (null,'" .
+            $aData['MaNSX'] . "','" . $aData['MaLoai'] . "','" . $aData['TenSP'] . "','" . $aData['ChiTiet'] . "','" .
+            $aData['Gia'] . "','" . $aData['images'] . "',null)";
         return DB::makeConnection()->query($sql);
     }
 
     public static function selectOneProduct($id)
     {
-        return DB::makeConnection()->query("SELECT * FROM sanpham where MaSP='" . $id . "'");
+        return DB::makeConnection()->query("SELECT * FROM Product where MaSP='" . $id . "'");
     }
 
     public static function isProductExists($tensp)
     {
-        return DB::makeConnection()->query("SELECT * FROM sanpham sp JOIN nhasanxuat nxx on sp.MaNSX=nxx.MaNSX 
+        $query = DB::makeConnection()->query("SELECT * FROM Product sp JOIN nhasanxuat nxx on sp.MaNSX=nxx.MaNSX 
             JOIN loai l ON l.MaLoai=sp.MaLoai WHERE TenSP='" . $tensp . "'");
+        return (!empty($query) && $query->num_rows > 0);
     }
 
     public static function deleteProduct($id)
     {
-        return DB::makeConnection()->query("DELETE FROM sanpham where MaSP='" . $id . "'");
+        return DB::makeConnection()->query("DELETE FROM Product where MaSP='" . $id . "'");
     }
 
-    public static function updateProduct($data)
+    public static function updateProduct($aData)
     {
-        return DB::makeConnection()->query("UPDATE sanpham SET TenSP='" . $data['TenSP'] . "',GiaBan='" .
-            $data['GiaBan'] . "',ChiTiet='" . $data['ChiTiet'] . "',
-        MaNSX='" . $data['NSX'] . "',MaLoai='" . $data['Loai'] . "',Anh='" . $data['Images'] . "'
-        Where MaSP='" . $data['id'] . "'
-        ");
+
+        $query = [];
+        if ($aData['TenSP'] ?? '') {
+            $query[] = " TenSP ='" . $aData['TenSP'] . "'";
+        }
+        if ($aData['MaNSX'] ?? '') {
+            $query[] = " MaNSX ='" . $aData['MaNSX'] . "'";
+        }
+        if ($aData['MaLoai'] ?? '') {
+            $query [] = " MaLoai = '" . $aData['MaLoai'] . "'";
+        }
+        if ($aData['TenSP'] ?? '') {
+            $query [] = " TenSP = '" . $aData['TenSP'] . "'";
+        }
+        if ($aData['ChiTiet'] ?? '') {
+            $query [] = " ChiTiet = '" . $aData['ChiTiet'] . "'";
+        }
+        if ($aData['Gia'] ?? '') {
+            $query [] = " Gia = '" . $aData['Gia'] . "'";
+        }
+        if ($aData['images'] ?? '') {
+            $query [] = " Anh = '" . $aData['images'] . "'";
+        }
+
+        return DB::makeConnection()->query("UPDATE `Product` SET " . implode(',', $query) .
+            ",`createDate`=null WHERE MaSP='" . $aData['id'] . "'");
     }
 
     // Producer

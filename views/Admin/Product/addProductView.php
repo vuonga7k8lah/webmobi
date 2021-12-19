@@ -38,7 +38,7 @@ if (!isset($_SESSION['login_true'])) {
                         </div>
                         <div class="form-group">
                             <label>Giá Bán</label>
-                            <input class="form-control" name="GiaBan" required/>
+                            <input class="form-control" name="Gia" required/>
                         </div>
                         <div class="form-group">
                             <label>Chi Tiết</label>
@@ -54,7 +54,7 @@ if (!isset($_SESSION['login_true'])) {
                         </div>
                         <div class="form-group">
                             <label>Loại</label>
-                            <select class="form-control" name="Loai" id="Loai">
+                            <select class="form-control" name="MaLoai" id="Loai">
                                 <?php foreach ($row_type as $key => $value): ?>
                                     <option value="<?= $value[0] ?>"><?= $value[1] ?></option>
                                 <?php endforeach; ?>

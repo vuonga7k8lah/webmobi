@@ -3,5 +3,8 @@
     "psr-4": {
       "MyProject\\": "src/"
     }
+  },
+  "require": {
+    "cboden/ratchet": "^0.4.4"
   }
 }
