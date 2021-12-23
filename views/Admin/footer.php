@@ -16,11 +16,6 @@
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
     function hienthianh() {
         var fileSelected=document.getElementById('upload').files;
         console.log('fileSelected');

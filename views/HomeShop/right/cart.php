@@ -34,7 +34,8 @@ require_once 'views/HomeShop/Slide.php';
                 }
                 if (isset($_SESSION["cart"])) {
                     ?>
-                    <form id="cart-form" action="<?php echo \MyProject\Core\URL::uri('cartaction')?>" method="POST" style="width: 800px;">
+                    <form id="cart-form" action="<?php echo \MyProject\Core\URL::uri('cart-action')?>" method="POST"
+                          style="width: 800px;">
                         <table>
                             <tr>
                                 <th class="product-number">STT</th>
@@ -47,19 +48,23 @@ require_once 'views/HomeShop/Slide.php';
                             </tr>
                             <?php
                             $id=implode(",", array_keys($_SESSION["cart"]));
-                            $sp = DB::makeConnection()->query("SELECT * FROM sanpham WHERE MaSP IN (" . implode(",", array_keys($_SESSION["cart"])) . ")")->fetch_all();
+                            $sp = DB::makeConnection()->query("SELECT * FROM Product WHERE MaSP IN (" . implode(",",
+                                    array_keys($_SESSION["cart"])) . ")")->fetch_all();
                             $num = 1;
                             $sum = 0;
-                            foreach ($sp as $item => $row):?>
+                            foreach ($sp as $item => $row):
+
+                                $url=json_decode($row[6],true)[0];
+                                ?>
                                 <tr>
                                     <td class="product-number"><?= $num; ?></td>
-                                    <td class="product-name"><?= $row[1] ?></td>
-                                    <td class="product-img"><img src="<?= $row[4] ?>"/></td>
-                                    <td class="product-price"><?= $row[2] ?></td>
-                                    <td class="product-quantity"><input type="text"
+                                    <td class="product-name"><?= $row[3] ?></td>
+                                    <td class="product-img"><img src="<?= $url ?>"/></td>
+                                    <td class="product-price"><?= Money($row[5]) ?></td>
+                                    <td class="product-quantity"><input type="number"
                                                                         value="<?=$_SESSION["cart"][$row[0]]?>"
                                                                         name="quantity[<?= $row[0] ?>]"/></td>
-                                    <td class="total-money"><?= $sum1=$_SESSION["cart"][$row[0]]*$row[2]; ?></td>
+                                    <td class="total-money"><?= Money($sum1=$_SESSION["cart"][$row[0]]*$row[5]); ?></td>
                                     <td class="product-delete"><a href="<?php echo \MyProject\Core\URL::uri('logout2').'/'.$row[0];?>">Xóa</a></td>
                                 </tr>
                                 <?php
@@ -73,7 +78,7 @@ require_once 'views/HomeShop/Slide.php';
                                 <td class="product-img">&nbsp;</td>
                                 <td class="product-price">&nbsp;</td>
                                 <td class="product-quantity">&nbsp;</td>
-                                <td class="total-money"><?= $sum ?></td>
+                                <td class="total-money"><?= Money($sum) ?></td>
                                 <td class="product-delete"></td>
                             </tr>
                         </table>
@@ -83,8 +88,13 @@ require_once 'views/HomeShop/Slide.php';
                         <hr>
                         <input type="hidden" value="<?= $sum ?>" name="total"/>
                         <div><label>Ghi chú: </label><textarea name="note" cols="50" rows="7"></textarea></div>
-                        <input type="submit" name="order_click" value="Đặt hàng"/>
+                        <br>
+                        <input type="submit"
+                               style="display: block;margin: 10px auto"
+                               name="order_click"
+                               value="Đặt hàng"/>
                     </form>
+
                     <?php
                 } else {
                     echo "giỏ hàng chưa có sản phẩm";

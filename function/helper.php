@@ -48,3 +48,8 @@ function LoadAnh($data)
         <?php
     }
 }
+function Money($float): string
+{
+    $money = (float)$float;
+    return number_format($money, 2, '.', ',');
+}

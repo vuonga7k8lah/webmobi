@@ -1,13 +1,17 @@
 <?php
+
+use MyProject\Core\Session;
 use MyProject\Core\URL;
 use MyProject\Model\AdminModel;
+use MyProject\Model\UserModel;
+
 if (!isset($_SESSION['login_true'])) {
     header('location:' . URL::uri('admin'));
 } else {
     require_once 'views/Admin/header.php';
 //<!-- Navigation -->
     require_once 'views/Admin/navigation.php';
-    $row = AdminModel::selectAllUser()->fetch_all();
+    $row = UserModel::getUsers();
 
     ?>
     <!-- Page Content -->
@@ -40,28 +44,52 @@ if (!isset($_SESSION['login_true'])) {
                     <thead>
                     <tr align="center">
                         <th>Mã KH</th>
+                        <th>Avatar</th>
                         <th>Tên Khách Hàng</th>
                         <th>Email</th>
                         <th>Địa Chỉ</th>
                         <th>Số Điện Thoại</th>
+                        <th>Vai Trò</th>
                         <th>Delete</th>
                         <th>Edit</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($row as $item): ?>
+                    <?php
+                    $i = 1;
+                    foreach ($row as $item):
+
+                        if ($item[4] == 4) {
+                            continue;
+                        }
+                        $aInfo = json_decode($item[8], true);
+                        $url = (isset($aInfo['avatar']) && !empty($aInfo['avatar'])) ? $aInfo['avatar'] :
+                            URL::uri('assets/avt.jpg');
+                        ?>
                         <tr class="odd gradeX" align="center">
-                            <td><?php echo $item[0]; ?></td>
+                            <td><?= $i ?></td>
                             <td><?php echo $item[1]; ?></td>
+                            <td>
+                                <a href="<?= $url ?>">
+                                    <img src="<?= $url ?>"
+                                         alt=""
+                                         style="width: 50px;height: 50px;float: left;display: block;margin: 0 auto">
+                                </a>
+                            </td>
                             <td><?php echo $item[2]; ?></td>
-                            <td><?php echo $item[3]; ?></td>
-                            <td><?php echo $item[4]; ?></td>
-                            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a
-                                    href="<?php echo URL::uri('deleteUser'); ?>/<?= $item[0]; ?>">Delete</a></td>
-                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a
-                                    href="<?php echo URL::uri('updateUser'); ?>/<?= $item[0]; ?>">Edit</a></td>
+                            <td><?php echo $item[5]; ?></td>
+                            <td><?php echo $item[6]; ?></td>
+                            <td><?= ($item[4] == 1) ? "Quản Lý" : "Khách Hàng"; ?></td>
+                            <td class="center">
+                                <a      onclick="return confirm('Are you sure you want to delete this item?');"
+                                        href="<?php echo URL::uri('deleteUser'); ?>/<?= $item[0]; ?>"> <i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
+                            <td class="center"><a
+                                        onclick="return confirm('Are you sure you want to update this item?');"
+                                        href="<?php echo URL::uri('updateUser'); ?>/<?= $item[0]; ?>"><i class="fa fa-pencil fa-fw"></i> Edit</a></td>
                         </tr>
-                    <?php endforeach;
+                        <?php
+                        $i++;
+                    endforeach;
                     ?>
                 </table>
             </div>
@@ -73,6 +101,11 @@ if (!isset($_SESSION['login_true'])) {
     <!-- /#wrapper -->
     <!-- jQuery -->
     <?php
+    Session::checkReloadPage([
+        'success_updateUser',
+        'success_addUser',
+        'delete_User'
+    ]);
     require_once 'views/Admin/footer.php';
 }
 ?>

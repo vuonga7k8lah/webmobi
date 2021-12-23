@@ -14,27 +14,27 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Product</a>
+                <a class="nav-link disabled" href="<?=URL::uri('order'); ?>">Order</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link disabled" href="#">Order</a>
+                <a class="nav-link disabled" href="<?=URL::uri('cart'); ?>">Cart</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link disabled" href="#">About</a>
+                <a class="nav-link disabled" href="<?=URL::uri('about'); ?>">About</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link disabled" href="#">Contact</a>
+                <a class="nav-link disabled" href="<?=URL::uri('chat'); ?>">Contact</a>
             </li>
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Account
+                    <?=$_SESSION['isLogin']??'Account'?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Login</a>
-                    <a class="dropdown-item" href="#">Register</a>
+                    <a class="dropdown-item" href="<?=URL::uri('login'); ?>">Login</a>
+                    <a class="dropdown-item" href="<?=URL::uri('register'); ?>">Register</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <a class="dropdown-item" href="<?=URL::uri('logout2'); ?>">Logout</a>
                 </div>
             </li>
         </ul>

@@ -73,7 +73,9 @@ if (!isset($_SESSION['login_true'])) {
                                         onclick="return confirm('Are you sure you want to edit this item?');"><i class="fa fa-pencil fa-fw"></i>Edit</a>
                             </td>
                         </tr>
-                    <?php endforeach;
+                    <?php
+                    $i++;
+                    endforeach;
                     ?>
                 </table>
             </div>

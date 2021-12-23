@@ -1,5 +1,6 @@
 <?php
 
+use MyProject\Core\Session;
 use MyProject\Core\URL;
 
 require_once 'views/HomeShop/Header.php';
@@ -54,6 +55,11 @@ require_once 'views/HomeShop/Slide.php';
 </div>
 </div>
 <?php
+Session::checkReloadPage([
+    'errorLogin',
+    'isLoginCart',
+    'islogin1',
+]);
 require_once 'views/HomeShop/Footer.php';
 
 ?>

@@ -38,17 +38,8 @@
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
-                <!--                <li class="sidebar-search">-->
-                <!--                    <div class="input-group custom-search-form">-->
-                <!--                        <a href=""><i <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-laptop" fill="currentColor" xmlns="http://www.w3.org/2000/svg">-->
-                <!--                                <path fill-rule="evenodd" d="M13.5 3h-11a.5.5 0 0 0-.5.5V11h12V3.5a.5.5 0 0 0-.5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11z"/>-->
-                <!--                                <path d="M0 12h16v.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5V12z"/>-->
-                <!--                            </svg></i> hehe</a>-->
-                <!--                    </div>-->
-                <!--
-                <!--                </li>-->
                 <li>
-                    <a href="<?php echo URL::uri('listProduct'); ?>"><i
+                    <a href="<?php echo URL::uri('dashboard'); ?>"><i
                                 class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
@@ -110,7 +101,19 @@
                             <a href="<?php echo URL::uri('listOrder'); ?>">List Order</a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a href="<?php echo URL::uri('listOrder'); ?>"><i class="fa fa-book fa-fw"></i>Live Chat<span
+                                class="fa
+                    arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="<?php echo URL::uri('admin-chat'); ?>">Live Chat</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
+
         </div>
         <!-- /.sidebar-collapse -->
     </div>

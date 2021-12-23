@@ -8,9 +8,9 @@ use MyProject\Database\DB;
 
 class HomeShopModel
 {
-    public static function searchProduct($like)
+    public static function searchProduct($like): array
     {
-        $sql = "SELECT * FROM sanpham where TenSP like '%$like%'";
+        $sql = "SELECT * FROM Product where TenSP like '%$like%'";
         $db = DB::makeConnection()->query($sql)->fetch_all();
         $numbe_row = DB::makeConnection()->query($sql)->num_rows;
         return [$db, $numbe_row];

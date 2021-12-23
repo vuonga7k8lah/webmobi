@@ -77,8 +77,11 @@ $oRoute->get('cart', 'MyProject\Controller\CartController@cartView');
 //xóa sp
 $oRoute->get('logout2', 'MyProject\Controller\LogoutController@logout2');
 $oRoute->post('cart', 'MyProject\Controller\CartController@cartView');
-$oRoute->post('cartaction', 'MyProject\Controller\HomeShopController@cartAction');
+$oRoute->post('cart-action', 'MyProject\Controller\HomeShopController@cartAction');
 //donhang
 $oRoute->get('order', 'MyProject\Controller\OrderController@orderView');
 
-
+//chat
+$oRoute->get('chat', 'MyProject\Controller\ChatController@loadView');
+//admin-chat
+$oRoute->get('admin-chat', 'MyProject\Controller\ChatController@loadViewAdminChat');

@@ -27,12 +27,14 @@ $aSP = ProductModel::getProductsLimit($sosp, $offset);
             echo "<li>Sorry we not found products</li>";
         } else {
             foreach ($aSP as $item => $row):
+                $url=json_decode($row[6],true)[0];
+
                 ?>
                 <li>
                     <a href="<?php echo URL::uri('ctsp') . "/" . $row[0]; ?>">
-                        <img src="<?php echo $row[4] ?>" width="180" height="180"/>
-                        <p style="color:#292929"><?php echo $row[1] ?></p>
-                        <p style="color:#e10c00">Giá:<?php echo $row[2] ?> vnđ</p>
+                        <img src="<?=$url?>" width="180" height="180"/>
+                        <p style="color:#292929"><?= $row[3] ?></p>
+                        <p style="color:#e10c00">Giá:<?=Money($row[5])?> vnđ</p>
                         <P style="color:#e10c00;">CHI TIẾT</P>
                     </a>
                 </li>

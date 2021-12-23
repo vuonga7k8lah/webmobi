@@ -21,6 +21,8 @@ class AdminController
         $data['password'] = md5($_POST['password']);
         if (AdminModel::loginUser($data)) {
             Session::set('login_true', 'true');
+            $aUser = UserModel::isUserExists($data['email'])[1];
+            Session::set('userRole', $aUser['role']);
             header('location:' . URL::uri('dashboard'));
         } else {
             Session::set('error_login', 'Email OR PASSWORD KHONG DUNG');
@@ -71,10 +73,10 @@ class AdminController
     {
         $aData = $_POST;
         $aData['images'] = json_encode($_POST['images']);
-            if (AdminModel::updateProduct($aData)) {
-                Session::set('success_updateProduct', 'San Pham Da Update thanh cong');
-                header('location:' . URL::uri('listProduct'));
-            }
+        if (AdminModel::updateProduct($aData)) {
+            Session::set('success_updateProduct', 'San Pham Da Update thanh cong');
+            header('location:' . URL::uri('listProduct'));
+        }
     }
 
     public function addProduct()
@@ -239,7 +241,7 @@ class AdminController
     {
         $data = $_POST;
         $data['password'] = md5($_POST['password']);
-        if (UserModel::isUserExists($_POST['TenKH'])[0] || UserModel::isUserExists($_POST['Email'])[0]) {
+        if (UserModel::isUserExists($_POST['Email'])[0]) {
             Session::set('error_addUser', 'Tên Tài Khoản Hoặc Email Đã Tồn Tại');
             header('location:' . URL::uri('addUser'));
         } else {

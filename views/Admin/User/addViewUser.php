@@ -1,6 +1,10 @@
 <?php
+
+use MyProject\Core\Session;
+use MyProject\Core\URL;
+
 if (!isset($_SESSION['login_true'])) {
-    header('location:' . \MyProject\Core\URL::uri('admin'));
+    header('location:' . URL::uri('admin'));
 } else {
     require_once 'views/Admin/header.php';
     require_once 'views/Admin/navigation.php';
@@ -18,42 +22,67 @@ if (!isset($_SESSION['login_true'])) {
                         </div>
                     <?php endif; ?>
 
-                <!-- /.col-lg-12 -->
-                <!--                <div class="col-lg-7" style="padding-bottom:120px">-->
+                    <!-- /.col-lg-12 -->
+                    <!--                <div class="col-lg-7" style="padding-bottom:120px">-->
 
-                <form action="<?php echo \MyProject\Core\URL::uri('addUser'); ?>" method="POST">
-                    <input name="MaKH" type="hidden" value=""/>
-                    <div class="form-group">
-                        <label>Tên Khách Hàng</label>
-                        <input class="form-control" name="TenKH" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input class="form-control" name="Email" type="email" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Địa Chỉ</label>
-                        <input class="form-control" name="DiaChi" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Số Điện Thoại</label>
-                        <input class="form-control" name="SDT" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input class="form-control" name="password" type="password" required/>
-                    </div>
-                    <button type="submit" class="btn btn-default">Thêm Thành Viên</button>
-                    <button type="reset" class="btn btn-default">Reset</button>
-                    <form>
+                    <form action="<?php echo URL::uri('addUser'); ?>" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Tên Khách Hàng</label>
+                            <input class="form-control" name="username" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input class="form-control" name="Email" type="email" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa Chỉ</label>
+                            <input class="form-control" name="DiaChi" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Số Điện Thoại</label>
+                            <input class="form-control" name="SDT" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Giới Tính</label>
+                            <select class="form-control" name="sex">
+                                <option value="">Gender</option>
+                                <option value="0">Male</option>
+                                <option value="1">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Vai Trò</label>
+                            <select class="form-control" name="role">
+                                <option value="1">Khách Hàng</option>
+                                <?= (isset($_SESSION['userRole']) && ($_SESSION['userRole'] == 2)) ? '
+                                    <option value="2">Quản Lý</option>' : '' ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input class="form-control" name="password" type="password" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Avatar</label>
+                            <input type="file" id="imagesAvatar" name="images" data-allow-reorder="true"
+                                   data-max-file-size="3MB" data-max-files="5">
+                            <div id="previewAvatar"></div>
+                            <div id="inputIMGAvatar"></div>
+                        </div>
+                        <button type="submit" class="btn btn-default">Thêm Thành Viên</button>
+                        <button type="reset" class="btn btn-default">Reset</button>
+                        <form>
+                </div>
             </div>
+            <!-- /.row -->
         </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
+        <!-- /.container-fluid -->
     </div>
     <!-- /#page-wrapper -->
 
     <?php
+    Session::checkReloadPage([
+        'error_addUser'
+    ]);
     require_once 'views/Admin/footer.php';
 }

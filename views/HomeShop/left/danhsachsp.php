@@ -9,7 +9,7 @@ $aNSX = ProducerModel::getAllProducer();
 ?>
 <h4 style="text-align:center;color:#f7922a;background:#202020;;padding:10px"><i class="fas fa-bars"></i>Loại Sản Phẩm
 </h4>
-<div class="danhsachsanpham">
+<div class="danhsachsanpham mt-3">
     <ul>
         <?php
         if (empty($aType)){

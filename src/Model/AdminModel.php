@@ -163,7 +163,7 @@ class AdminModel
     //UserModel
     public static function selectAllUser()
     {
-        return DB::makeConnection()->query('SELECT * FROM khachhang');
+        return DB::makeConnection()->query('SELECT * FROM users');
     }
 
     public static function selectOneUser($id)

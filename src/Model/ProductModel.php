@@ -25,9 +25,21 @@ class ProductModel
         return !empty($query) ? $query->fetch_all() : [];
     }
 
+    public static function getProductsWithProductIn($aProductsID)
+    {
+        $query = DB::makeConnection()->query("SELECT * FROM Product");
+        return !empty($query) ? $query->fetch_all() : [];
+    }
+
     public static function getProduct($id): ?array
     {
-        $query = DB::makeConnection()->query("SELECT * FROM Product WHERE MaSP=".$id);
+        $query = DB::makeConnection()->query("SELECT * FROM Product WHERE MaSP=" . $id);
         return !empty($query) ? $query->fetch_assoc() : [];
+    }
+
+    public static function getProductWithType($id): ?array
+    {
+        $query = DB::makeConnection()->query("SELECT * FROM Product WHERE MaLoai=" . $id);
+        return !empty($query) ? $query->fetch_all() : [];
     }
 }

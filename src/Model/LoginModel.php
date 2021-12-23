@@ -11,7 +11,7 @@ class LoginModel
     public static function isLoggedIn($data)
     {
 
-        $query = DB::makeConnection()->query("SELECT * FROM khachhang WHERE TenKH='" .$data['TenKH']. "'
+        $query = DB::makeConnection()->query("SELECT * FROM users WHERE username='" .$data['TenKH']. "'
         and password='" .$data['password']. "'
         or email='" .$data['TenKH']. "'");
         $odata=$query->fetch_assoc();
