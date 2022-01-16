@@ -35,14 +35,13 @@ class HomeShopController
                     }
                     $error = false;
                     $success = false;
-                    if ($error == false && !empty($_POST['quantity'])) { //Xử lý lưu giỏ hàng vào db
+                    if (!empty($_POST['quantity'])) { //Xử lý lưu giỏ hàng vào db
                         $data = $_POST;
-                        $data['MaKH'] = CartModel::selectIdKhachHang($_SESSION['isLogin'])['MaKH'];
-                        $insertOrder = CartModel::insertOrder($data);
-                        $data['id_donhang'] = CartModel::selectIdDonHang($data['MaKH'])['id'];
+                        $data['MaKH'] = $_SESSION['currentUserID'];
+                        $data['MaDH']=CartModel::insertOrder($data);
                         $adata = array();
                         foreach ($data['quantity'] as $key => $value) {
-                            $data['gia'] = CartModel::selectGiaSanPham($key)['GiaBan'];
+                            $data['gia'] = CartModel::selectGiaSanPham($key);
                             $data['MaSP']=(string) $key;
                             $data['quantity']=$value;
                             unset($data['order_click']);
@@ -51,8 +50,10 @@ class HomeShopController
                             unset($data['MaKH']);
                              $adata[]=$data;
                         }
-                        $insertDonHangPhu=CartModel::insertHoaDonphu($adata);
-                        $_SESSION['order']=$data['id_donhang'];
+                        foreach ($adata as $aItem){
+                            CartModel::insertHoaDonphu($aItem);
+                        }
+                        $_SESSION['order']=$data['MaDH'];
                         unset($_SESSION['cart']);
                         header('location:'.URL::uri('order'));
                     }

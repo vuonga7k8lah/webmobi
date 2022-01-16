@@ -17,9 +17,11 @@ class CartModel
 
     public static function insertOrder($data)
     {
-        $sql = "INSERT INTO donhang values (null,'" . $data['MaKH'] . "','" . $data['note'] . "','" . $data['total'] . "',null)";
-        $hoadon = DB::makeConnection()->query($sql);
-        return $hoadon;
+
+        $connect = DB::makeConnection();
+        $sql = "INSERT INTO `orders`(`MaDH`, `MaKH`, `Note`, `DiaChi`, `Total`, `SDT`, `createDate`) values (null,'" . $data['MaKH'] . "','" . $data['note'] . "','" . $data['DiaChi'] .
+            "','" . $data['total'] . "','" . $data['SDT'] . "',null)";
+        return $connect->query($sql) ? $connect->insert_id : 0;
     }
 
     public static function selectIdKhachHang($name)
@@ -30,30 +32,22 @@ class CartModel
 
     public static function selectIdDonHang($MaKH)
     {
-        $id = DB::makeConnection()->
-        query("SELECT id FROM donhang dh join khachhang kh on dh.MaKH=kh.MaKH WHERE kh.MaKH='" . $MaKH . "'")->fetch_assoc();
+        $id = DB::makeConnection()
+            ->query("SELECT id FROM donhang dh join khachhang kh on dh.MaKH=kh.MaKH WHERE kh.MaKH='" . $MaKH . "'")
+            ->fetch_assoc();
         return $id;
     }
 
-    public static function selectGiaSanPham($id)
+    public static function selectGiaSanPham($id): int
     {
-        $id = DB::makeConnection()->query("SELECT GiaBan FROM sanpham where MaSP='" . $id . "'")->fetch_assoc();
-        return $id;
+        $query=DB::makeConnection()->query("SELECT Gia FROM Product where MaSP='" . $id . "'");
+        return !empty($query)?$query->fetch_assoc()['Gia']:0;
     }
 
-    public static function insertHoaDonphu($data)
+    public static function insertHoaDonphu($aData)
     {
-        $aValue="";
-        foreach ($data as $key => $value) {
-            $aValues = array_values($value);
-            $aValue .= '("' . implode('","', $aValues) . '")';
-            if($key != (count($data)-1)){
-                $aValue .= ",";
-            }
-        }
-        $sql = sprintf('INSERT INTO donhangphu(quantity,id_donhang,price,MaSP) VALUES %s', $aValue);
-        $insert=DB::makeConnection()->query($sql);
-        return $insert;
+        $sql = "INSERT INTO `subOrders`(`MaDHP`, `MaDH`, `MaSP`, `quantity`, `price`, `status`, `createDate`) VALUES (null,'".$aData['MaDH']."','".$aData['MaSP']."','".$aData['quantity']."','".$aData['gia']."','',null)";
+        return DB::makeConnection()->query($sql);
     }
 
 }

@@ -166,9 +166,10 @@ class AdminModel
         return DB::makeConnection()->query('SELECT * FROM users');
     }
 
-    public static function selectOneUser($id)
+    public static function selectOneUser($id): ?array
     {
-        return DB::makeConnection()->query("SELECT * FROM khachhang where MaKH='" . $id . "'")->fetch_assoc();
+        $query=DB::makeConnection()->query("SELECT * FROM users where ID='" . $id . "'");
+        return !empty($query)?$query->fetch_assoc():[];
     }
 
     public static function updateUser($data)

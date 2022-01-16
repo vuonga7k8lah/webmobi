@@ -4,7 +4,9 @@ function uploadImageMany($aData)
 {
     $data = $aData['images'];
     $allowed = ['image/jpeg', 'image/jpg', 'image/png', 'images/x-png', 'image/gif'];
-
+    if (!is_array($data['name'])){
+        return handleUploadIMG($data);
+    }
 // Kiem tra xem file upload co nam trong dinh dang cho phep
     for ($i = 0; $i < count($data['name']); $i++) {
         if (in_array(strtolower($data['type'][$i]), $allowed)) {
@@ -24,6 +26,26 @@ function uploadImageMany($aData)
     }
     return json_encode($NameIMG);
 }
+function handleUploadIMG($data){
+    $allowed = ['image/jpeg', 'image/jpg', 'image/png', 'images/x-png', 'image/gif'];
+// Kiem tra xem file upload co nam trong dinh dang cho phep
+        if (in_array(strtolower($data['type']), $allowed)) {
+            // Neu co trong dinh dang cho phep, tach lay phan mo rong
+            $ext = substr(strrchr($data['name'], '.'), 1);
+            $renamed = uniqid(rand(), true) . '.' . "$ext";
+            $NameIMG = "./assets/uploads/" . $renamed;
+            if (!move_uploaded_file($data['tmp_name'], "./assets/uploads/" . $renamed)) {
+                $errors[$data['name']] = "<p class='error'>Server problem</p>";
+            }
+            // Xoa file da duoc upload va ton tai trong thu muc tam
+            if (isset($data['tmp_name']) && is_file($data['tmp_name']) &&
+                file_exists($data['tmp_name'])) {
+                unlink($data['tmp_name']);
+            }
+    }
+    return json_encode([$NameIMG]);
+}
+
 
 function the_excerpt($text, $string = 400)
 {

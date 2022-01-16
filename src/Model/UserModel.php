@@ -17,14 +17,10 @@ class UserModel
         return [$oCheck->num_rows > 0, $oCheck->fetch_assoc()];
     }
 
-    public static function insert($data)
+    public static function insert($aData)
     {
-        $sql = sprintf(
-            "INSERT INTO khachhang(%s) VALUES(%s)",
-            implode(',', array_keys($data)),
-            '"' . implode('","', array_values($data)) . '"');
-        $oCheck = DB::makeConnection()->query($sql);
-        return $oCheck;
+        $sql ="INSERT INTO `users`(`ID`, `username`, `email`, `password`, `role`, `DiaChi`, `sdt`, `createDate`, `info`) VALUES (null,'".$aData['username']."','".$aData['Email']."','".$aData['password']."','".$aData['role']."','".$aData['DiaChi']."','".$aData['SDT']."',null,'".$aData['info']."')";
+        return DB::makeConnection()->query($sql);
     }
 
     public static function getUsers()
@@ -42,17 +38,41 @@ class UserModel
 
     public static function deleteUser($id)
     {
-        $oDelete = DB::makeConnection()->query("DELETE FROM khachhang WHERE id='" . $id . "'");
-        return $oDelete;
+        return DB::makeConnection()->query("DELETE FROM users WHERE id='" . $id . "'");
     }
 
-    public static function updateUser($data)
+    public static function updateUser($aData)
     {
-        $oUpdate = DB::makeConnection()->query("UPDATE khachhang SET id='" . $data['id'] . "',username='" .
-            $data['username'] . "',
-        email='" . $data['email'] . "',password='" . $data['password'] . "'
-         WHERE id='" . $data['id'] . "'");
-        return $oUpdate;
+        $query = [];
+        if (!empty($data['sex'])||!empty($data['images'][0])){
+
+            $query[] = " info ='" . json_encode([
+                'sex'=>$data['sex'],
+                'avatar'=>$data['images'][0]
+                ]) . "'";
+        }
+
+        if ($aData['username'] ?? '') {
+            $query[] = " username ='" . $aData['username'] . "'";
+        }
+        if ($aData['email'] ?? '') {
+            $query[] = " email ='" . $aData['email'] . "'";
+        }
+        if ($aData['DiaChi'] ?? '') {
+            $query [] = " DiaChi = '" . $aData['DiaChi'] . "'";
+        }
+        if ($aData['TenSP'] ?? '') {
+            $query [] = " TenSP = '" . $aData['TenSP'] . "'";
+        }
+        if ($aData['sdt'] ?? '') {
+            $query [] = " sdt = '" . $aData['sdt'] . "'";
+        }
+        if ($aData['role'] ?? '') {
+            $query [] = " role = '" . $aData['role'] . "'";
+        }
+
+        return DB::makeConnection()->query("UPDATE `users` SET " . implode(',', $query) .
+            ",`createDate`=null WHERE ID='" . $aData['id'] . "'");
     }
 
     public static function updatePass($data)

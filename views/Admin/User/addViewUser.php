@@ -53,9 +53,9 @@ if (!isset($_SESSION['login_true'])) {
                         <div class="form-group">
                             <label>Vai Trò</label>
                             <select class="form-control" name="role">
-                                <option value="1">Khách Hàng</option>
+                                <option value="0">Khách Hàng</option>
                                 <?= (isset($_SESSION['userRole']) && ($_SESSION['userRole'] == 2)) ? '
-                                    <option value="2">Quản Lý</option>' : '' ?>
+                                    <option value="1">Quản Lý</option>' : '' ?>
                             </select>
                         </div>
                         <div class="form-group">

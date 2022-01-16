@@ -228,7 +228,7 @@ class AdminController
     public function deleteUser()
     {
         $id = Request::uri()[1];
-        if (AdminModel::deleteUser($id)) {
+        if (UserModel::deleteUser($id)) {
             Session::set('delete_User', 'Tài Khoản Đã xóa ');
             unset($_SESSION['success_updateUser']);
             unset($_SESSION['success_addUser']);
@@ -245,6 +245,12 @@ class AdminController
             Session::set('error_addUser', 'Tên Tài Khoản Hoặc Email Đã Tồn Tại');
             header('location:' . URL::uri('addUser'));
         } else {
+            $data['info']=json_encode([
+                'avatar'=>$data['images'],
+                'sex'=>$data['sex']
+            ]);
+            unset($data['images']);
+            unset($data['sex']);
             if (UserModel::insert($data)) {
                 Session::set('success_addUser', 'Tài Khoản Đã Được Tạo');
                 header('location:' . URL::uri('listUser'));
@@ -256,7 +262,7 @@ class AdminController
     public function updateUser()
     {
         $data = $_POST;
-        if (AdminModel::updateUser($data)) {
+        if (UserModel::updateUser($data)) {
             Session::set('success_updateUser', 'Tài Khoản Đã UPDATE');
             header('location:' . URL::uri('listUser'));
         }

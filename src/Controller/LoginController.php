@@ -21,6 +21,7 @@ class LoginController
         $data['password'] = md5($_POST['password']);
         if (LoginModel::isLoggedIn($data)[0]) {
             Session::set('isLogin',LoginModel::isLoggedIn($data)[1]['username']);
+            Session::set('currentUserID',LoginModel::isLoggedIn($data)[1]['ID']);
             header('location:' . URL::uri('cart'));
         } else {
             Session::set('errorLogin','username Or Password khong dung');

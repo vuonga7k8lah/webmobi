@@ -62,6 +62,7 @@ require_once 'views/HomeShop/Slide.php';
                                     <td class="product-img"><img src="<?= $url ?>"/></td>
                                     <td class="product-price"><?= Money($row[5]) ?></td>
                                     <td class="product-quantity"><input type="number"
+                                                                        min="1"
                                                                         value="<?=$_SESSION["cart"][$row[0]]?>"
                                                                         name="quantity[<?= $row[0] ?>]"/></td>
                                     <td class="total-money"><?= Money($sum1=$_SESSION["cart"][$row[0]]*$row[5]); ?></td>
@@ -87,6 +88,9 @@ require_once 'views/HomeShop/Slide.php';
                         </div>
                         <hr>
                         <input type="hidden" value="<?= $sum ?>" name="total"/>
+
+                        <div><label>Địa Chỉ: </label><input type="text" name="DiaChi" /></div>
+                        <div><label>Số Điện Thoại: </label><input type="text" name="SDT" /></div>
                         <div><label>Ghi chú: </label><textarea name="note" cols="50" rows="7"></textarea></div>
                         <br>
                         <input type="submit"

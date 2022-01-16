@@ -10,14 +10,20 @@ class OrderModel
 {
     public static function selectAll($id)
     {
-        $db = DB::makeConnection()->query("SELECT DISTINCT sp.TenSP,sp.Anh,dhp.price,dhp.quantity,dh.total,dh.note FROM donhang dh JOIN donhangphu dhp ON dh.id=dhp.id_donhang JOIN sanpham sp ON sp.MaSP=dhp.MaSP WHERE dh.id=" . $id . "");
-        return $db;
+        $query = DB::makeConnection()->query("SELECT DISTINCT sp.TenSP,sp.Anh,dhp.price,dhp.quantity,dh.total,dh.note FROM orders dh JOIN subOrders dhp ON dh.MaDH=dhp.MaDH JOIN Product sp ON sp.MaSP=dhp.MaSP WHERE dh.MaDH=" . $id );
+        return !empty($query)?$query->fetch_all():[];
     }
 
-    public static function selectIdDonHang($name)
+    public static function selectIdDonHang($userID)
     {
-        $db = DB::makeConnection()->query("SELECT dh.id FROM khachhang kh join donhang dh on dh.MaKH=kh.MaKH WHERE kh.TenKH='" . $name . "'")->fetch_assoc();
-        return $db;
+        $query= DB::makeConnection()->query("SELECT dh.MaDH FROM users kh join orders dh on kh.ID=dh.MaKH WHERE kh.ID='"
+            . $userID . "'");
+        if (!empty($query)){
+            foreach ($query->fetch_all() as $id){
+                $aID[]=$id[0];
+            }
+        }
+        return !empty($query)?$aID:[];
     }
 
     public static function selectPrintId($id)

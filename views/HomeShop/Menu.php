@@ -20,7 +20,7 @@
                 <a class="nav-link disabled" href="<?=URL::uri('cart'); ?>">Cart</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link disabled" href="<?=URL::uri('about'); ?>">About</a>
+                <a class="nav-link disabled" href="">About</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link disabled" href="<?=URL::uri('chat'); ?>">Contact</a>
@@ -34,7 +34,7 @@
                     <a class="dropdown-item" href="<?=URL::uri('login'); ?>">Login</a>
                     <a class="dropdown-item" href="<?=URL::uri('register'); ?>">Register</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?=URL::uri('logout2'); ?>">Logout</a>
+                    <a class="dropdown-item" href="<?=URL::uri('logout1'); ?>">Logout</a>
                 </div>
             </li>
         </ul>

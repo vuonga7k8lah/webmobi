@@ -44,8 +44,8 @@ if (!isset($_SESSION['login_true'])) {
                     <thead>
                     <tr align="center">
                         <th>Mã KH</th>
-                        <th>Avatar</th>
                         <th>Tên Khách Hàng</th>
+                        <th>Avatar</th>
                         <th>Email</th>
                         <th>Địa Chỉ</th>
                         <th>Số Điện Thoại</th>
@@ -59,7 +59,7 @@ if (!isset($_SESSION['login_true'])) {
                     $i = 1;
                     foreach ($row as $item):
 
-                        if ($item[4] == 4) {
+                        if ($item[4] == 2) {
                             continue;
                         }
                         $aInfo = json_decode($item[8], true);
