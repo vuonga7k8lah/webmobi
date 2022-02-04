@@ -20,11 +20,15 @@ class RegisterController
     {
         $data=$_POST;
         $data['password']=md5($_POST['password']);
-        if (UserModel::isUserExists($_POST['TenKH'])[0] || UserModel::isUserExists($_POST['email'])[0]) {
-            Session::set('register-error', 'username or email Đã Tồn Tại');
+        if ( UserModel::isUserExists($_POST['email'])[0]) {
+            Session::set('register-error', 'email Đã Tồn Tại');
             Redirect::to('register');
         } else {
-            $userId = UserModel::insert($data);
+            $data['info']=json_encode([
+                'avatar'=>'',
+                'sex'=>$data['sex']
+            ]);
+            $userId = UserModel::insertShop($data);
             if ($userId) {
                 Session::set('register-success','Tài Khoản Được Tạo Thành Công');
                 header('location:'.URL::uri('login'));

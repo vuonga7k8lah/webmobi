@@ -1,5 +1,6 @@
 <?php
 
+use MyProject\Core\Request;
 use MyProject\Model\OrderModel;
 use MyProject\Core\URL;
 
@@ -9,6 +10,7 @@ if (!isset($_SESSION['login_true'])) {
     require_once 'views/Admin/header.php';
 //<!-- Navigation -->
     require_once 'views/Admin/navigation.php';
+    $id = Request::uri()[1];
     $orders = OrderModel::selectPrintId($id);
     ?>
     <!-- Page Content -->

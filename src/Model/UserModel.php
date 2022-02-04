@@ -23,6 +23,12 @@ class UserModel
         return DB::makeConnection()->query($sql);
     }
 
+    public static function insertShop($aData)
+    {
+        $sql ="INSERT INTO `users`(`ID`, `username`, `email`, `password`, `role`, `DiaChi`, `sdt`, `createDate`, `info`) VALUES (null,'".$aData['username']."','".$aData['Email']."','".$aData['password']."','0','".$aData['DiaChi']."','".$aData['SDT']."',null,'".$aData['info']."')";
+        return DB::makeConnection()->query($sql);
+    }
+
     public static function getUsers()
     {
         $query = DB::makeConnection()->query("SELECT * FROM users");

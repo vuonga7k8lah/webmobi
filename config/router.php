@@ -80,6 +80,7 @@ $oRoute->post('cart', 'MyProject\Controller\CartController@cartView');
 $oRoute->post('cart-action', 'MyProject\Controller\HomeShopController@cartAction');
 //donhang
 $oRoute->get('order', 'MyProject\Controller\OrderController@orderView');
+$oRoute->post('custom-order', 'MyProject\Controller\OrderController@handleCustomDateOrder');
 
 //chat
 $oRoute->get('chat', 'MyProject\Controller\ChatController@loadView');

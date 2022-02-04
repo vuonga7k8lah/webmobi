@@ -24,11 +24,11 @@ require_once 'views/HomeShop/Slide.php';
                 <div class="field">
                     <div class="field">
                         <label for="reg-username">Username</label>
-                        <input id="reg-username" type="text" name="TenKH" placeholder="Username" required>
+                        <input id="reg-username" type="text" name="username" placeholder="Username" required>
                     </div>
                     <div class="field">
                         <label for="reg-email">Email</label>
-                        <input id="reg-email" type="email" name="email" placeholder="Email" required>
+                        <input id="reg-email" type="email" name="Email" placeholder="Email" required>
                     </div>
                     <div class="field">
                         <label for="reg-email">Address</label>
@@ -40,7 +40,7 @@ require_once 'views/HomeShop/Slide.php';
                     </div>
                     <div class="field">
                         <label for="reg-email">Sex</label>
-                        <select>
+                        <select name="sex">
                             <option value="">Gender</option>
                             <option value="1">Male</option>
                             <option value="0">Female</option>
@@ -57,6 +57,12 @@ require_once 'views/HomeShop/Slide.php';
     </div>
 </div>
 <?php
+\MyProject\Core\Session::checkReloadPage(
+        [
+                'register-error',
+                'register-success'
+        ]
+);
 require_once 'views/HomeShop/Footer.php';
 
 ?>
