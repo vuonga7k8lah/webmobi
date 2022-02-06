@@ -30,6 +30,7 @@
     }(document, 'script', 'facebook-jssdk'));</script>
 </body>
 <script src="./assets/bootstrap/jquery.js" ></script>
+<script src="./assets/main.js" ></script>
 <script src="./assets/bootstrap/js/bootstrap.js" ></script>
 
 </html>
