@@ -8,7 +8,14 @@ class ProductModel
 {
     public static function getProductsLimit($limit = 6, $page = 1)
     {
-        $sql = "SELECT * FROM Product ORDER BY MaSP ASC  LIMIT " . $page . ',' . $limit;
+        $sql = "SELECT * FROM Product ORDER BY createDate ASC  LIMIT " . $page . ',' . $limit;
+        $query = DB::makeConnection()->query($sql);
+        return !empty($query) ? $query->fetch_all() : [];
+    }
+
+    public static function getProductsLimitNews($limit = 6, $page = 1)
+    {
+        $sql = "SELECT * FROM Product ORDER BY MaSP DESC  LIMIT " . $page . ',' . $limit ;
         $query = DB::makeConnection()->query($sql);
         return !empty($query) ? $query->fetch_all() : [];
     }
