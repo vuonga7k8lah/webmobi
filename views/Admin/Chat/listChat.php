@@ -10,7 +10,7 @@ if (!isset($_SESSION['login_true'])) {
 //<!-- Navigation -->
     require_once 'views/Admin/navigation.php';
     $row = [];
-
+    $aData = \MyProject\Model\ChatModel::getAllChatAdmin();
     ?>
     <!-- Page Content -->
     <div id="page-wrapper">
@@ -41,47 +41,42 @@ if (!isset($_SESSION['login_true'])) {
                        style="text-align: center">
                     <thead>
                     <tr align="center">
-                        <th>STT</th>
-                        <th>Tên Khách Hàng</th>
-                        <th>Email</th>
-                        <th>Địa Chỉ</th>
-                        <th>Số Điện Thoại</th>
-                        <th>Delete</th>
-                        <th>Detail</th>
+                        <th style="text-align: center">STT</th>
+                        <th style="text-align: center">Tên Khách Hàng</th>
+                        <th style="text-align: center">Email</th>
+                        <th style="text-align: center">Địa Chỉ</th>
+                        <th style="text-align: center">Số Điện Thoại</th>
+                        <th style="text-align: center">Delete</th>
+                        <th style="text-align: center">Detail</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
                     $i = 1;
-                    foreach ($row as $item):
+                    foreach ($aData as $item):
 
-                        if ($item[4] == 2) {
-                            continue;
-                        }
-                        $aInfo = json_decode($item[8], true);
-                        $url = (isset($aInfo['avatar']) && !empty($aInfo['avatar'])) ? $aInfo['avatar'] :
-                            URL::uri('assets/avt.jpg');
-                        ?>
+//                        if ($item[4] == 2) {
+//                            continue;
+//                        }
+//                        $aInfo = json_decode($item[8], true);
+//                        $url = (isset($aInfo['avatar']) && !empty($aInfo['avatar'])) ? $aInfo['avatar'] :
+//                            URL::uri('assets/avt.jpg');
+//                        ?>
                         <tr class="odd gradeX" align="center">
                             <td><?= $i ?></td>
-                            <td><?php echo $item[1]; ?></td>
-                            <td>
-                                <a href="<?= $url ?>">
-                                    <img src="<?= $url ?>"
-                                         alt=""
-                                         style="width: 50px;height: 50px;float: left;display: block;margin: 0 auto">
-                                </a>
-                            </td>
                             <td><?php echo $item[2]; ?></td>
-                            <td><?php echo $item[5]; ?></td>
-                            <td><?php echo $item[6]; ?></td>
-                            <td><?= ($item[4] == 1) ? "Quản Lý" : "Khách Hàng"; ?></td>
+                            <td><?php echo $item[1]; ?></td>
+                            <td><?php echo $item[3]; ?></td>
+                            <td><?php echo $item[4]; ?></td>
                             <td class="center">
                                 <a      onclick="return confirm('Are you sure you want to delete this item?');"
-                                        href="<?php echo URL::uri('deleteUser'); ?>/<?= $item[0]; ?>"> <i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
+                                        href="<?php echo URL::uri('admin-delete-chat'); ?>/<?= $item[0]; ?>"> <i
+                                            class="fa
+                                        fa-trash-o  fa-fw"></i>Delete</a></td>
                             <td class="center"><a
                                     onclick="return confirm('Are you sure you want to update this item?');"
-                                    href="<?php echo URL::uri('updateUser'); ?>/<?= $item[0]; ?>"><i class="fa fa-pencil fa-fw"></i> Edit</a></td>
+                                    href="<?php echo URL::uri('admin-detail-chat'); ?>/<?= $item[0]; ?>"><i class="fa
+                                    fa-pencil fa-fw"></i> Detail</a></td>
                         </tr>
                         <?php
                         $i++;

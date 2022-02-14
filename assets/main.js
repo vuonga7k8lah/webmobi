@@ -12,6 +12,7 @@ $(document).ready(function () {
                 "content": content
             },
             success: function (response) {
+                location.reload();
             }
         });
 

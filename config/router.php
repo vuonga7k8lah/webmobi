@@ -85,5 +85,8 @@ $oRoute->post('custom-order', 'MyProject\Controller\OrderController@handleCustom
 //chat
 $oRoute->get('chat', 'MyProject\Controller\ChatController@loadView');
 $oRoute->post('chats', 'MyProject\Controller\ChatController@handleChat');
+$oRoute->post('chats-admin', 'MyProject\Controller\ChatController@handleChatAdmin');
 //admin-chat
 $oRoute->get('admin-chat', 'MyProject\Controller\ChatController@loadViewAdminChat');
+$oRoute->get('admin-delete-chat', 'MyProject\Controller\ChatController@deleteChat');
+$oRoute->get('admin-detail-chat', 'MyProject\Controller\ChatController@loadViewAdminDetailChat');

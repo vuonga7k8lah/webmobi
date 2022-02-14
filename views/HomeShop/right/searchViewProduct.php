@@ -19,9 +19,10 @@ require_once 'views/HomeShop/Slide.php';
             <?php
             $like = $_POST['search'];
             $search = HomeShopModel::searchProduct($like);
+
             ?>
 
-            <p style="text-align:center;color:#e10c00;padding:10px">sản phẩm tìm thấy
+            <p style="text-align:center;color:#e10c00;padding:10px">Sản phẩm tìm thấy
             <hr/>
             </p>
             <div class="sanphamall" style="height: 800px">
@@ -36,12 +37,13 @@ require_once 'views/HomeShop/Slide.php';
                 <ul>
                     <?php
                     foreach ($search[0] as $item => $row):
+                        $url=json_decode($row[6],true)[0];
                         ?>
                         <li>
                             <a href="<?php echo URL::uri('ctsp') . "/" . $row[0]; ?>">
-                                <img src="<?php echo $row[4] ?>" width="180" height="180"/>
-                                <p style="color:#292929"><?php echo $row[1] ?></p>
-                                <p style="color:#e10c00">Giá:<?php echo $row[2] ?> vnđ</p>
+                                <img src="<?php echo $url ?>" width="180" height="180"/>
+                                <p style="color:#292929"><?php echo $row[3] ?></p>
+                                <p style="color:#e10c00">Giá:<?php echo $row[5] ?> vnđ</p>
                                 <P style="color:#e10c00;">Chi Tiết</P>
                             </a>
                         </li>

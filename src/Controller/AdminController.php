@@ -22,6 +22,7 @@ class AdminController
         if (AdminModel::loginUser($data)) {
             Session::set('login_true', 'true');
             $aUser = UserModel::isUserExists($data['email'])[1];
+            Session::set('adminUserID',$aUser['ID']);
             Session::set('userRole', $aUser['role']);
             header('location:' . URL::uri('dashboard'));
         } else {

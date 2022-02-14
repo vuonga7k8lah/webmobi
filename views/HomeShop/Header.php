@@ -15,6 +15,14 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
           integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.css">
+    <?php
+    if (\MyProject\Core\Request::uri()[0]=='about'){
+        ?>
+        <link rel="stylesheet" type="text/css" href="./assets/about.css"/>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <?php
+    }
+    ?>
 </head>
 
 <body>

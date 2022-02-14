@@ -34,6 +34,11 @@ class UserModel
         $query = DB::makeConnection()->query("SELECT * FROM users");
         return !empty($query) ? $query->fetch_all() : [];
     }
+    public static function getUserWithUserID($id): ?array
+    {
+        $query = DB::makeConnection()->query("SELECT * FROM users WHERE ID = ".$id);
+        return !empty($query) ? $query->fetch_assoc() : [];
+    }
 
     public static function getAddUser($id)
     {

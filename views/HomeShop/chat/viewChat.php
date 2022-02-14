@@ -1,5 +1,8 @@
 <?php
 
+use MyProject\Core\Redirect;
+use MyProject\Model\ChatModel;
+
 require_once 'views/HomeShop/Header.php';
 require_once 'views/HomeShop/Menu.php';
 ?>
@@ -7,6 +10,7 @@ require_once 'views/HomeShop/Menu.php';
     <main class="content">
         <?php
         if (!isset($_SESSION['isLogin'])) {
+            Redirect::to('login');
             ?>
             <div class="container">
                 <div class="col">
@@ -55,32 +59,49 @@ require_once 'views/HomeShop/Menu.php';
 
                             <div class="position-relative">
                                 <div class="chat-messages p-4">
+                                    <?php
+                                    $aDataMessage = ChatModel::getAllChatAdminWithMaKH($_SESSION['currentUserID']);
 
-                                    <div class="chat-message-right pb-4">
-                                        <div>
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                 class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-                                            <div class="text-muted small text-nowrap mt-2">2:33 am</div>
-                                        </div>
-                                        <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                                            <div class="font-weight-bold mb-1">You</div>
-                                            Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.
-                                        </div>
-                                    </div>
-
-                                    <div class="chat-message-left pb-4">
-                                        <div>
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                                 class="rounded-circle mr-1" alt="Sharon Lessman" width="40"
-                                                 height="40">
-                                            <div class="text-muted small text-nowrap mt-2">2:34 am</div>
-                                        </div>
-                                        <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-                                            <div class="font-weight-bold mb-1">Sharon Lessman</div>
-                                            Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal
-                                            commodo.
-                                        </div>
-                                    </div
+                                    if (!empty($_SESSION['currentUserID'])) {
+                                        foreach ($aDataMessage as $item) {
+                                            $src = json_decode($item[4], true)['avatar'];
+                                            if ($item[6] == 'no') {
+                                                ?>
+                                                <div class="chat-message-left pb-4">
+                                                    <div>
+                                                        <img src="<?= $src ?:
+                                                            'https://bootdey.com/img/Content/avatar/avatar3.png' ?>"
+                                                             class="rounded-circle mr-1" alt="Sharon Lessman" width="40"
+                                                             height="40">
+                                                        <div class="text-muted small text-nowrap
+                                                           mt-2"><?= $item[5] ?></div>
+                                                    </div>
+                                                    <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                        <div class="font-weight-bold mb-1"><?= $item[2] ?></div>
+                                                        <?= $item[3] ?>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <div class="chat-message-right pb-4">
+                                                    <div>
+                                                        <img src="<?= $src ?:
+                                                            'https://bootdey.com/img/Content/avatar/avatar1.png' ?>"
+                                                             class="rounded-circle mr-1" alt="Chris Wood" width="40"
+                                                             height="40">
+                                                        <div class="text-muted small text-nowrap mt-2"><?= $item[5] ?></div>
+                                                    </div>
+                                                    <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                                        <div class="font-weight-bold mb-1"><?= $item[2] ?></div>
+                                                        <?= $item[3] ?>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                        }
+                                    }
+                                    ?>
                                 </div>
                             </div>
 
@@ -88,7 +109,10 @@ require_once 'views/HomeShop/Menu.php';
                                 <div class="input-group">
                                     <input type="hidden" name="userID" value="<?= $_SESSION['currentUserID'] ?>">
                                     <input type="hidden" name="username" value="<?= $_SESSION['isLogin'] ?>">
-                                    <input type="text" name="content" class="form-control" placeholder="content contact">
+                                    <input type="text"
+                                           name="content"
+                                           class="form-control"
+                                           placeholder="content contact">
                                     <button type="submit" id="send-message" class="btn btn-primary">Send</button>
                                 </div>
                             </div>

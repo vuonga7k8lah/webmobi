@@ -20,7 +20,7 @@
                 <a class="nav-link disabled" href="<?=URL::uri('cart'); ?>">Cart</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link disabled" href="">About</a>
+                <a class="nav-link disabled" href="<?=URL::uri('about'); ?>">About</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link disabled" href="<?=URL::uri('chat'); ?>">Contact</a>
@@ -40,7 +40,7 @@
         </ul>
         <form class="form-inline my-2 my-lg-0" action="<?php echo URL::uri('search'); ?>"
               method="post">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>

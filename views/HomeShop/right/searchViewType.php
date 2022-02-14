@@ -8,6 +8,7 @@ use MyProject\Model\HomeShopModel;
 require_once 'views/HomeShop/Header.php';
 require_once 'views/HomeShop/Menu.php';
 require_once 'views/HomeShop/Slide.php';
+$id = Request::uri()[1];
 ?>
     <div class="content">
         <div class="left">
@@ -17,8 +18,8 @@ require_once 'views/HomeShop/Slide.php';
         </div>
         <div class="right">
             <?php
-            if (HomeShopModel::searchType($id)->num_rows > 0) {
-                $search = HomeShopModel::searchType($id)->fetch_all();
+            $search = HomeShopModel::searchType($id);
+            if (!empty($search)) {
                 ?>
                 <p style="text-align:center;color:#e10c00;padding:10px">Loại Sản Phẩm:<?= $search[0][0] ?>
                 <hr/>
@@ -27,10 +28,11 @@ require_once 'views/HomeShop/Slide.php';
                     <ul>
                         <?php
                         foreach ($search as $item => $row):
+                            $url=json_decode($row[2],true)[0];
                             ?>
                             <li>
                                 <a href="<?php echo URL::uri('ctsp') . "/" . $row[1]; ?>">
-                                    <img src="<?php echo $row[2] ?>" width="180" height="180"/>
+                                    <img src="<?php echo $url ?>" width="180" height="180"/>
                                     <p style="color:#292929"><?php echo $row[3] ?></p>
                                     <p style="color:#e10c00">Giá:<?php echo $row[4] ?> vnđ</p>
                                     <P style="color:#e10c00;">Chi Tiết</P>
