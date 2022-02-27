@@ -29,7 +29,7 @@ require_once 'views/HomeShop/Slide.php';
                         <div class="row">
                             <div id="myCarousel" class="carousel slide border" data-ride="carousel">
                                 <div class="carousel-inner">
-                                    <?
+                                    <?php
                                     $i = 1;
                                     foreach ($aUrl as $url): ?>
                                         <div class="carousel-item <?= $i == 1 ? 'active' : '' ?>">

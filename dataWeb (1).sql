@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 14, 2022 at 02:54 PM
+-- Generation Time: Feb 27, 2022 at 05:21 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.18
 
@@ -34,17 +34,9 @@ CREATE TABLE `orders` (
   `DiaChi` text NOT NULL,
   `Total` int(11) NOT NULL,
   `SDT` int(11) NOT NULL,
-  `createDate` timestamp NOT NULL DEFAULT current_timestamp()
+  `createDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` text NOT NULL DEFAULT '\'chuanBi\''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`MaDH`, `MaKH`, `Note`, `DiaChi`, `Total`, `SDT`, `createDate`) VALUES
-(14, 1, 'cxxxx', 'ha dong', 48889776, 22, '2022-01-16 09:47:00'),
-(15, 1, 'sss', 'ha dong', 139945404, 363101188, '2022-01-16 09:58:06'),
-(16, 2, 'giao hàng nhanh lên nhé', 'Thái Nguyên', 129964268, 363101188, '2022-02-04 06:57:17');
 
 -- --------------------------------------------------------
 
@@ -90,8 +82,7 @@ CREATE TABLE `Product` (
 
 INSERT INTO `Product` (`MaSP`, `MaNSX`, `MaLoai`, `TenSP`, `ChiTiet`, `Gia`, `Anh`, `createDate`) VALUES
 (2, 1, 1, 'Iphone 13', '<h2>Why do we use it?</h2>\r\n\r\n<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using &#39;Content here, content here&#39;, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for &#39;lorem ipsum&#39; will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>\r\n\r\n<h2>Why do we use it?</h2>\r\n\r\n<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using &#39;Content here, content here&#39;, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for &#39;lorem ipsum&#39; will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>\r\n', 12222444, '[\"./assets/uploads/156576625261bedac155ca69.34515416.jpg\",\"./assets/uploads/182373950761bedac155d2f7.94880314.png\"]', '2022-01-16 14:55:11'),
-(3, 1, 1, 'Iphone 14', '<h2>Why do we use it?</h2>\r\n\r\n<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using &#39;Content here, content here&#39;, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for &#39;lorem ipsum&#39; will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>\r\n', 23324234, '[\"./assets/uploads/212547811361bedae0ed3671.73008139.jpg\",\"./assets/uploads/174925386861bedae0ed3d06.50453306.jpg\"]', '2021-12-19 07:10:26'),
-(4, 1, 1, 'Iphone 15', '<p>dasdsa</p>\r\n', 12222444, '[\"./assets/uploads/2021801300620674fa724959.70201528.JPG\",\"./assets/uploads/1804837028620674fa725103.65672682.JPG\"]', '2022-02-11 14:38:52');
+(3, 1, 1, 'Iphone 14', '<h2>Why do we use it?</h2>\r\n\r\n<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using &#39;Content here, content here&#39;, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for &#39;lorem ipsum&#39; will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>\r\n', 23324234, '[\"./assets/uploads/212547811361bedae0ed3671.73008139.jpg\",\"./assets/uploads/174925386861bedae0ed3d06.50453306.jpg\"]', '2021-12-19 07:10:26');
 
 -- --------------------------------------------------------
 
@@ -108,16 +99,6 @@ CREATE TABLE `subOrders` (
   `status` text NOT NULL,
   `createDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `subOrders`
---
-
-INSERT INTO `subOrders` (`MaDHP`, `MaDH`, `MaSP`, `quantity`, `price`, `status`, `createDate`) VALUES
-(3, 14, 2, 4, 12222444, '', '2022-01-16 09:47:00'),
-(4, 15, 3, 6, 23324234, '', '2022-01-16 09:58:06'),
-(5, 16, 2, 3, 12222444, '', '2022-02-04 06:57:17'),
-(6, 16, 3, 4, 23324234, '', '2022-02-04 06:57:17');
 
 -- --------------------------------------------------------
 
@@ -139,8 +120,9 @@ CREATE TABLE `support` (
 --
 
 INSERT INTO `support` (`id`, `MaKH`, `MaNV`, `content`, `status`, `createDate`) VALUES
-(6, 7, 0, 'aaa', 'no', '2022-02-13 03:34:39'),
-(7, 7, 1, 'hello, what is up ??', 'yes', '2022-02-13 03:45:41');
+(25, 2, 1, 'hello', 'no', '2022-02-24 00:11:08'),
+(26, 2, 1, 'hello', 'yes', '2022-02-24 00:16:29'),
+(27, 2, 0, 'tôi có thể giúp gì cho bạn?', 'no', '2022-02-24 00:19:02');
 
 -- --------------------------------------------------------
 
@@ -186,8 +168,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`ID`, `username`, `email`, `password`, `role`, `DiaChi`, `sdt`, `createDate`, `info`) VALUES
-(1, 'admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 2, 'Thái Nguyên', 123456789, '2021-12-16 03:44:50', NULL),
-(2, 'abc', 'admin1@gmail.com', 'e00cf25ad42683b3df678c61f42c6bda', 0, 'Hà Nội', 363101188, '2022-01-16 08:28:25', '{\"avatar\":\"./assets/uploads/131602674761e38fd8ea0618.62498244.jpg\",\"sex\":\"1\"}'),
+(1, 'admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 2, 'Thái Nguyên', 123456789, '2021-12-16 03:44:50', '{\"statusOrder\":\"true\"}'),
+(2, 'test', 'admin1@gmail.com', 'e00cf25ad42683b3df678c61f42c6bda', 0, 'Hà Nội', 363101188, '2022-01-16 08:28:25', '{\"avatar\":\"./assets/uploads/131602674761e38fd8ea0618.62498244.jpg\",\"sex\":\"1\"}'),
 (6, 'le haoa', 'admin3222@gmail.com', 'c84258e9c39059a89ab77d846ddab909', 0, 'Thái Nguyên', 23238232, '2022-02-05 01:48:02', '{\"avatar\":\"./assets/uploads/116733864361fdd7503bc957.68054675.jpg\",\"sex\":\"0\"}'),
 (7, 'hihia', 'admin333@gmail.comw', '21232f297a57a5a743894a0e4a801fc3', 0, 'hai phong', 363101188, '2022-02-05 01:48:47', '{\"avatar\":\"\",\"sex\":\"0\"}');
 
@@ -275,7 +257,7 @@ ALTER TABLE `subOrders`
 -- AUTO_INCREMENT for table `support`
 --
 ALTER TABLE `support`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `typeProducts`

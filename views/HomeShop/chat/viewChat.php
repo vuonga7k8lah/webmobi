@@ -7,7 +7,7 @@ require_once 'views/HomeShop/Header.php';
 require_once 'views/HomeShop/Menu.php';
 
 $aDataKH=\MyProject\Model\UserModel::getUserWithUserID($_SESSION['currentUserID']);
-$src=!empty($aDataKH['info'])?json_decode($aDataKH['info'],true)['avatar']:'';
+$src=!empty($aDataKH['info'])?json_decode($aDataKH['info'],true)['avatar']??'':'';
 ?>
 
     <main class="content">
