@@ -51,6 +51,7 @@ if (!isset($_SESSION['login_true'])) {
                             <th style="text-align: center">Địa chỉ</th>
                             <th style="text-align: center">SDT</th>
                             <th style="text-align: center">Tổng Tiền</th>
+                            <th style="text-align: center">Trạng Thái</th>
                             <th style="text-align: center">Ngày tạo đơn</th>
                             <th style="text-align: center">Delete</th>
                             <th style="text-align: center">In Đơn</th>
@@ -61,6 +62,11 @@ if (!isset($_SESSION['login_true'])) {
                         $i = 1;
                         foreach ($row as $item):
                             $coverDate = date('m-d-Y', strtotime($item[5]));
+                            $aDataGiaoHang=[
+                              'chuanBi'=>'Đang Chuẩn Bị Hàng'
+                              ,'dangGiao'=>'Đang Giao'
+                              ,'daGiao'=>'Đã Giao'
+                            ];
                             ?>
                             <tr class="odd gradeX" align="center">
                                 <td><?= $i; ?></td>
@@ -68,8 +74,19 @@ if (!isset($_SESSION['login_true'])) {
                                 <td><?= $item[2]; ?></td>
                                 <td><?= $item[3]; ?></td>
                                 <td><?= Money($item[4]); ?></td>
+                                <td>
+                                    <form action="">
+                                        <select id="giaoHang<?=$item[0]?>" name="selectGiaoHang<?=$item[0]?>">
+                                           <?foreach ($aDataGiaoHang as $key=>$value):?>
+                                            <option value="<?=$key.'+'.$item[0]?>" <?=$item[6]==$key?'selected':''?>
+                                            ><?=$value?></option>
+                                           <?php endforeach;?>
+                                        </select>
+                                    </form>
+                                </td>
                                 <td><?= $coverDate ?></td>
                                 <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a
+                                            onclick="return confirm('Are you sure you want to delete this item?');"
                                             href="<?php echo URL::uri('deleteOrder'); ?>/<?= $item[0]; ?>">Delete</a>
                                 </td>
                                 <td class="center"><i class="fa fa fa-print fa-fw"></i> <a

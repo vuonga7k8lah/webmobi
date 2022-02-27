@@ -140,25 +140,49 @@ $(document).ready(function(){
 
     });
 
-        $('#send-message-admin').click(function () {
+    $('#send-message-admin').click(function () {
             let userID = $('input[name="userID"]').val();
             let maNV = $('input[name="MaNV"]').val();
             let username = $('input[name="username"]').val();
             let content = $('input[name="content"]').val();
+            if (content){
+                $.ajax({
+                    type: "post",
+                    url: "http://127.0.0.1/webmobi/chats-admin",
+                    data: {
+                        "userID": userID,
+                        "maNV": maNV,
+                        "username": username,
+                        "content": content
+                    },
+                    success: function (response) {
+                        location.reload();
+                    },
+                    error: function (response) {
+                        alert(response);
+                    }
+                });
+            }
+
+        });
+    for (let i =15;i<100;i++){
+        $('#giaoHang'+i).change(function () {
+            let dataSelect = $("select#giaoHang"+i).val();
+            console.log(dataSelect);
             $.ajax({
                 type: "post",
-                url: "http://127.0.0.1/webmobi/chats-admin",
+                url: "http://127.0.0.1/webmobi/delivery",
                 data: {
-                    "userID": userID,
-                    "maNV": maNV,
-                    "username": username,
-                    "content": content
+                    "data": dataSelect
                 },
                 success: function (response) {
                     location.reload();
+                },
+                error: function (response) {
+                    alert(response);
                 }
             });
-
         });
+    }
 
 });

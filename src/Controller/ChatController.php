@@ -24,6 +24,14 @@ class ChatController
     public function handleChatAdmin()
     {
         $data = $_POST;
+
+        if (ChatModel::isNoChatFeedbackByAdmin($data['userID'])) {
+            $aUserID = ChatModel::getListChatFeedback($data['userID']);
+            foreach ($aUserID as $item) {
+                ChatModel::updateUserNV($item[0], $data['maNV']);
+            }
+        }
+
         $x = ChatModel::insert([
             'MaKH'    => $data['userID'],
             'MaNV'    => $data['maNV'],
@@ -41,16 +49,25 @@ class ChatController
     public function handleChat()
     {
         $data = $_POST;
-        $x = ChatModel::insert([
-            'MaKH'    => $data['userID'],
-            'MaNV'    => '0',
-            'content' => $data['content'],
-            'status'  => 'no',
-        ]);
-        if ($x) {
-            echo "insert ok";
-        } else {
-            echo "insert k ok";
+        $maNV=0;
+//        if (ChatModel::isNoChatFeedbackByAdmin($data['userID']))
+//        {
+//            $maNV = ChatModel::
+//        }
+        if (empty($data['content'])){
+            echo "please enter the content";
+        }else{
+            $x = ChatModel::insert([
+                'MaKH'    => $data['userID'],
+                'MaNV'    => 0,
+                'content' => $data['content'],
+                'status'  => 'no',
+            ]);
+            if ($x) {
+                echo "insert ok";
+            } else {
+                echo "insert k ok";
+            }
         }
         die();
     }

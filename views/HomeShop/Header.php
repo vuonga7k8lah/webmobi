@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>SHOP KMA</title>
-    <base href="<?php use MyProject\Core\URL;
+    <base href="<?php use MyProject\Core\Request;
+    use MyProject\Core\URL;
 
     echo URL::uri(); ?>">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -16,11 +17,19 @@
           integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.css">
     <?php
-    if (\MyProject\Core\Request::uri()[0]=='about'){
+    if (in_array(Request::uri()[0], [
+        'about',
+        'chat'
+    ])) {
+
+        if(Request::uri()[0]=='about'){
+            echo '<link rel="stylesheet" type="text/css" href="./assets/about.css"/>';
+        }else{
+            echo ' <link rel="stylesheet" type="text/css" href="./assets/chat.css"/>';
+        }
         ?>
-        <link rel="stylesheet" type="text/css" href="./assets/about.css"/>
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <?php
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+            <?php
     }
     ?>
 </head>

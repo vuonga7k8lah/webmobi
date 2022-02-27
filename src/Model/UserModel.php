@@ -17,15 +17,27 @@ class UserModel
         return [$oCheck->num_rows > 0, $oCheck->fetch_assoc()];
     }
 
+    public static function isUserAdminWithUserId($userID):bool
+    {
+        $query = DB::makeConnection()->query("SELECT * FROM users WHERE ID='" . $userID . "' AND role=2");
+        return !empty($query->num_rows);
+    }
+
     public static function insert($aData)
     {
-        $sql ="INSERT INTO `users`(`ID`, `username`, `email`, `password`, `role`, `DiaChi`, `sdt`, `createDate`, `info`) VALUES (null,'".$aData['username']."','".$aData['Email']."','".$aData['password']."','".$aData['role']."','".$aData['DiaChi']."','".$aData['SDT']."',null,'".$aData['info']."')";
+        $sql
+            = "INSERT INTO `users`(`ID`, `username`, `email`, `password`, `role`, `DiaChi`, `sdt`, `createDate`, `info`) VALUES (null,'" .
+            $aData['username'] . "','" . $aData['Email'] . "','" . $aData['password'] . "','" . $aData['role'] . "','" .
+            $aData['DiaChi'] . "','" . $aData['SDT'] . "',null,'" . $aData['info'] . "')";
         return DB::makeConnection()->query($sql);
     }
 
     public static function insertShop($aData)
     {
-        $sql ="INSERT INTO `users`(`ID`, `username`, `email`, `password`, `role`, `DiaChi`, `sdt`, `createDate`, `info`) VALUES (null,'".$aData['username']."','".$aData['Email']."','".$aData['password']."','0','".$aData['DiaChi']."','".$aData['SDT']."',null,'".$aData['info']."')";
+        $sql
+            = "INSERT INTO `users`(`ID`, `username`, `email`, `password`, `role`, `DiaChi`, `sdt`, `createDate`, `info`) VALUES (null,'" .
+            $aData['username'] . "','" . $aData['Email'] . "','" . $aData['password'] . "','0','" . $aData['DiaChi'] .
+            "','" . $aData['SDT'] . "',null,'" . $aData['info'] . "')";
         return DB::makeConnection()->query($sql);
     }
 
@@ -34,9 +46,10 @@ class UserModel
         $query = DB::makeConnection()->query("SELECT * FROM users");
         return !empty($query) ? $query->fetch_all() : [];
     }
+
     public static function getUserWithUserID($id): ?array
     {
-        $query = DB::makeConnection()->query("SELECT * FROM users WHERE ID = ".$id);
+        $query = DB::makeConnection()->query("SELECT * FROM users WHERE ID = " . $id);
         return !empty($query) ? $query->fetch_assoc() : [];
     }
 
@@ -51,15 +64,20 @@ class UserModel
     {
         return DB::makeConnection()->query("DELETE FROM users WHERE id='" . $id . "'");
     }
-
+    public static function updateInfo($id){
+        $aUser = self::getUserWithUserID($id);
+        $info=json_decode($aUser['info'],true);
+        $info['statusOrder']='true';
+        return DB::makeConnection()->query("UPDATE `users` SET info='".json_encode($info)."' WHERE ID=" . $id );
+    }
     public static function updateUser($aData)
     {
         $query = [];
-        if (!empty($data['sex'])||!empty($data['images'][0])){
+        if (!empty($data['sex']) || !empty($data['images'][0])) {
 
             $query[] = " info ='" . json_encode([
-                'sex'=>$data['sex'],
-                'avatar'=>$data['images'][0]
+                    'sex' => $data['sex'],
+                    'avatar' => $data['images'][0]
                 ]) . "'";
         }
 

@@ -8,6 +8,7 @@ use MyProject\Core\Request;
 use MyProject\Core\Session;
 use MyProject\Core\URL;
 use MyProject\Model\AdminModel;
+use MyProject\Model\OrderModel;
 use MyProject\Model\UserModel;
 
 require_once './function/UploadImages.php';
@@ -22,7 +23,7 @@ class AdminController
         if (AdminModel::loginUser($data)) {
             Session::set('login_true', 'true');
             $aUser = UserModel::isUserExists($data['email'])[1];
-            Session::set('adminUserID',$aUser['ID']);
+            Session::set('adminUserID', $aUser['ID']);
             Session::set('userRole', $aUser['role']);
             header('location:' . URL::uri('dashboard'));
         } else {
@@ -246,9 +247,9 @@ class AdminController
             Session::set('error_addUser', 'Tên Tài Khoản Hoặc Email Đã Tồn Tại');
             header('location:' . URL::uri('addUser'));
         } else {
-            $data['info']=json_encode([
-                'avatar'=>$data['images'],
-                'sex'=>$data['sex']
+            $data['info'] = json_encode([
+                'avatar' => $data['images'],
+                'sex'    => $data['sex']
             ]);
             unset($data['images']);
             unset($data['sex']);
@@ -274,11 +275,25 @@ class AdminController
     {
         require_once 'views/Admin/Order/listOrder.php';
     }
-
+    public function handleDelivery(){
+        if (empty($_POST['data'])){
+            return false;
+        }
+        $aData=explode('+',$_POST['data']);
+       $x= OrderModel::updateOrder($aData[1],$aData[0]);
+       var_dump($x);die();
+        echo "ok";
+        die();
+    }
     public function deleteOrder()
     {
         $id = Request::uri()[1];
-        if (AdminModel::deleteOrder($id)) {
+        $aSubIDs = OrderModel::getAllSubOrderIDWithID($id);
+        foreach ($aSubIDs as $id) {
+            OrderModel::deleteSubOrder($id);
+        }
+        if (OrderModel::deleteOrder($id)) {
+            unset($_SESSION['data-order']);
             header('location:' . URL::uri('listOrder'));
         }
     }
@@ -287,5 +302,12 @@ class AdminController
     {
         $id = Request::uri()[1];
         require_once "views/Admin/Order/printOrder.php";
+    }
+    public function updateUserInfo(){
+        $userID=$_POST['userID'];
+        $x=UserModel::updateInfo($userID);
+        var_dump($x);die();
+        echo 'ok';
+        die();
     }
 }

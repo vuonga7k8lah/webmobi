@@ -20,11 +20,17 @@ class LoginController
         $data = $_POST;
         $data['password'] = md5($_POST['password']);
         if (LoginModel::isLoggedIn($data)[0]) {
-            Session::set('isLogin',LoginModel::isLoggedIn($data)[1]['username']);
-            Session::set('currentUserID',LoginModel::isLoggedIn($data)[1]['ID']);
-            header('location:' . URL::uri('cart'));
+            Session::set('isLogin', LoginModel::isLoggedIn($data)[1]['username']);
+            Session::set('currentUserID', LoginModel::isLoggedIn($data)[1]['ID']);
+            if (UserModel::isUserAdminWithUserId(LoginModel::isLoggedIn($data)[1]['ID'])) {
+                Session::set('login_true', 'true');
+                $aUser = UserModel::getUserWithUserID($_SESSION['currentUserID']);
+                Session::set('adminUserID', $aUser['ID']);
+                Session::set('userRole', $aUser['role']);
+            }
+            header('location:' . URL::uri(''));
         } else {
-            Session::set('errorLogin','username Or Password khong dung');
+            Session::set('errorLogin', 'username Or Password khong dung');
             header('location:' . URL::uri('login'));
         }
     }

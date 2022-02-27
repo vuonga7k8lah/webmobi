@@ -32,6 +32,7 @@ require_once 'views/HomeShop/Slide.php';
                     $_SESSION["order"] = $aMaDH;
                 }
                 if (isset($_SESSION["order"])) {
+                    $info = json_decode((\MyProject\Model\UserModel::getUserWithUserID($_SESSION['currentUserID']))['info'],true);
 
                     ?>
                     <form id="cart-form" action="" method="POST" style="width: 800px;">
@@ -53,7 +54,9 @@ require_once 'views/HomeShop/Slide.php';
 
                             $num = 1;
                             $sum = 0;
-                            foreach ($aProducts as $item => $row):?>
+                            foreach ($aProducts as $item => $row):
+                                $date=$row[6];
+                                ?>
                                 <tr>
                                     <td class="product-number"><?= $num; ?></td>
                                     <td class="product-name"><?= $row[0] ?></td>
@@ -80,6 +83,14 @@ require_once 'views/HomeShop/Slide.php';
                         </div>
                         <hr>
                         <input type="hidden" value="<?= $sum ?>" name="total"/>
+                        <div><label>Thời Gian Nhận: </label><input type="date" name="DiaChi" value="<?=date('Y-m-d',
+                                strtotime($date. ' + 4 days'))?>" disabled/></div>
+                        <?php if ($row[7]=='dangGiao'):?>
+                        <div><label>Đã Nhận Hàng: </label>
+                            <input type="checkbox" name="status" id="da-nhan-hang" <?=isset($info['statusOrder'])?'checked':''?> /></div>
+                            <input type="hidden" id="order-userID" name="userID"
+                                   value="<?=$_SESSION['currentUserID']?>">
+                        <?php endif;?>
                         <div><label>Ghi chú: </label><?= $row[5] ?></div>
                     </form>
                     <?php

@@ -17,4 +17,17 @@ $(document).ready(function () {
         });
 
     });
+    $('#da-nhan-hang').click(function (){
+        let userID = $('#order-userID').val();
+        $.ajax({
+            type: "post",
+            url: "http://127.0.0.1/webmobi/updateInfo",
+            data: {
+                "userID": userID
+            },
+            success: function (response) {
+                location.reload();
+            }
+        });
+    })
 });

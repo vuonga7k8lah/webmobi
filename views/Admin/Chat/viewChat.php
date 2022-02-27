@@ -1,10 +1,6 @@
 <?php
 
 use MyProject\Core\URL;
-//$maKH=\MyProject\Core\Request::uri()[1];
-//$aMessage=\MyProject\Model\ChatModel::getAllChatAdminWithMaKH($maKH);
-//var_dump($_SESSION['adminUserID']);
-//var_dump($aMessage);die();
 if (!isset($_SESSION['login_true'])) {
     header('location:' . URL::uri('admin'));
 } else {
@@ -14,7 +10,8 @@ require_once 'views/Admin/navigation.php';
 $maKH=\MyProject\Core\Request::uri()[1];
 $aMessage=\MyProject\Model\ChatModel::getAllChatAdminWithMaKH($maKH);
 
-$aDataKH=\MyProject\Model\UserModel::getAddUser($maKH);
+$aDataKH=\MyProject\Model\UserModel::getUserWithUserID($maKH);
+$aDataAdmin=\MyProject\Model\UserModel::getUserWithUserID($_SESSION['adminUserID']);
 
 ?>
     <div id="page-wrapper">
@@ -25,8 +22,7 @@ $aDataKH=\MyProject\Model\UserModel::getAddUser($maKH);
                         <ul class="chat">
                             <?php
                                 foreach ($aMessage as $item):
-
-                                    $src=json_decode($item[4],true)['avatar'];
+                                    $src=!empty(json_decode($item[4],true))?json_decode($item[4],true)['avatar']:'';
                                     if ($item[6] == 'no'){
 
                             ?>
@@ -47,15 +43,19 @@ $aDataKH=\MyProject\Model\UserModel::getAddUser($maKH);
                             </li>
                                 <?php
                                     }else{
+                                        $src=!empty(json_decode($aDataAdmin['info'],true))?json_decode($aDataAdmin['info'],true)
+                                        ['avatar']:'';
                                         ?>
                                         <li class="right clearfix">
-                    	<span class="chat-img pull-right">
-                    		<img src="<?=$src?:'https://bootdey.com/img/Content/user_1.jpg'?>" alt="User Avatar">
-                    	</span>
+                                                <span class="chat-img pull-right">
+                                                    <img src="<?=$src?:'https://bootdey.com/img/Content/user_1.jpg'?>" alt="User Avatar">
+                                                </span>
                                             <div class="chat-body clearfix">
                                                 <div class="header">
-                                                    <strong class="primary-font"><?=$item[2]?></strong>
-                                                    <small class="pull-right text-muted"><i class="fa fa-clock-o"></i><?=$item[5]?></small>
+                                                    <small class="left text-muted"><i class="fa
+                                                    fa-clock-o"></i><?=$item[5]?></small>
+                                                    <strong class="primary-font"
+                                                            style="float: right;"><?=$aDataAdmin['username']?></strong>
                                                 </div>
                                                 <p>
                                                     <?=$item[3]?>

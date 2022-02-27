@@ -194,7 +194,7 @@ class AdminModel
 
     public static function deleteOrder($id)
     {
-        return DB::makeConnection()->query("DELETE FROM donhang where id=" . $id . "");
+        return DB::makeConnection()->query("DELETE FROM order where id=" . $id);
     }
 
 

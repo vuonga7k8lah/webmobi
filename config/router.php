@@ -28,6 +28,7 @@ $oRoute->post('repass', 'MyProject\Controller\ForgotController@resertPass');
 //$oRoute->post('update', 'MyProject\Controller\ManagerController@updateUser');
 //admin-login
 $oRoute->post('login-admin', 'MyProject\Controller\AdminController@loginUser');
+$oRoute->post('updateInfo', 'MyProject\Controller\AdminController@updateUserInfo');
 $oRoute->get('dashboard', 'MyProject\Controller\AdminController@getViewDashboard');
 $oRoute->post('a.upload', 'MyProject\Controller\UploadController@handleUpload');
 //admin-product
@@ -63,6 +64,7 @@ $oRoute->post('updateUser', 'MyProject\Controller\AdminController@updateUser');
 $oRoute->get('deleteUser', 'MyProject\Controller\AdminController@deleteUser');
 //admin-Order
 $oRoute->get('listOrder', 'MyProject\Controller\AdminController@listViewOrder');
+$oRoute->post('delivery', 'MyProject\Controller\AdminController@handleDelivery');
 $oRoute->get('deleteOrder', 'MyProject\Controller\AdminController@deleteOrder');
 $oRoute->get('printOrder', 'MyProject\Controller\AdminController@printOrder');
 //////route SHOP

@@ -31,10 +31,21 @@
                     <?=$_SESSION['isLogin']??'Account'?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <?php if (!isset($_SESSION['isLogin'])):?>
                     <a class="dropdown-item" href="<?=URL::uri('login'); ?>">Login</a>
                     <a class="dropdown-item" href="<?=URL::uri('register'); ?>">Register</a>
-                    <div class="dropdown-divider"></div>
+                    <?php endif;?>
+                    <?php
+                    if (isset($_SESSION['login_true'])){
+                        ?>
+                        <a class="dropdown-item" target="_blank" href="<?=URL::uri('dashboard'); ?>">Manage Admin</a>
+                    <?php
+                    }
+                    ?>
+                    <?php if (isset($_SESSION['isLogin'])):?>
+                        <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?=URL::uri('logout1'); ?>">Logout</a>
+                    <?php endif;?>
                 </div>
             </li>
         </ul>
