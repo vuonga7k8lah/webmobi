@@ -1,6 +1,5 @@
 <?php
 
-use MyProject\Model\AdminModel;
 use MyProject\Core\URL;
 use MyProject\Model\OrderModel;
 
@@ -62,10 +61,10 @@ if (!isset($_SESSION['login_true'])) {
                         $i = 1;
                         foreach ($row as $item):
                             $coverDate = date('m-d-Y', strtotime($item[5]));
-                            $aDataGiaoHang=[
-                              'chuanBi'=>'Đang Chuẩn Bị Hàng'
-                              ,'dangGiao'=>'Đang Giao'
-                              ,'daGiao'=>'Đã Giao'
+                            $aDataGiaoHang = [
+                                'chuanBi'  => 'Đang Chuẩn Bị Hàng',
+                                'dangGiao' => 'Đang Giao',
+                                'daGiao'   => 'Đã Giao'
                             ];
                             ?>
                             <tr class="odd gradeX" align="center">
@@ -76,22 +75,25 @@ if (!isset($_SESSION['login_true'])) {
                                 <td><?= Money($item[4]); ?></td>
                                 <td>
                                     <form action="">
-                                        <select id="giaoHang<?=$item[0]?>" name="selectGiaoHang<?=$item[0]?>">
-                                           <?foreach ($aDataGiaoHang as $key=>$value):?>
-                                            <option value="<?=$key.'+'.$item[0]?>" <?=$item[6]==$key?'selected':''?>
-                                            ><?=$value?></option>
-                                           <?php endforeach;?>
+                                        <select id="giaoHang<?= $item[0] ?>" name="selectGiaoHang<?= $item[0] ?>">
+                                            <? foreach ($aDataGiaoHang as $key => $value):?>
+                                                <option value="<?= $key . '+' . $item[0] ?>" <?= $item[6] == $key ?
+                                                    'selected' : '' ?>
+                                                ><?= $value ?></option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </form>
                                 </td>
                                 <td><?= $coverDate ?></td>
-                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a
+                                <td class="center">
+                                    <i class="fa fa-trash-o  fa-fw"></i>
+                                    <a
                                             onclick="return confirm('Are you sure you want to delete this item?');"
                                             href="<?php echo URL::uri('deleteOrder'); ?>/<?= $item[0]; ?>">Delete</a>
                                 </td>
-                                <td class="center"><i class="fa fa fa-print fa-fw"></i> <a
-                                            href="<?php echo URL::uri('printOrder'); ?>/<?= $item[0]; ?>">In
-                                        ĐƠN</a>
+                                <td class="center">
+                                    <i class="fa fa fa-print fa-fw"></i>
+                                    <a href="<?php echo URL::uri('printOrder'); ?>/<?= $item[0]; ?>">In ĐƠN</a>
                                 </td>
                             </tr>
                             <?php
