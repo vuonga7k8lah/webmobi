@@ -76,7 +76,7 @@ if (!isset($_SESSION['login_true'])) {
                                 <td>
                                     <form action="">
                                         <select id="giaoHang<?= $item[0] ?>" name="selectGiaoHang<?= $item[0] ?>">
-                                            <? foreach ($aDataGiaoHang as $key => $value):?>
+                                            <?php foreach ($aDataGiaoHang as $key => $value):?>
                                                 <option value="<?= $key . '+' . $item[0] ?>" <?= $item[6] == $key ?
                                                     'selected' : '' ?>
                                                 ><?= $value ?></option>
