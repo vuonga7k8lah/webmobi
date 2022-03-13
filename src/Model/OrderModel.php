@@ -48,14 +48,14 @@ class OrderModel
     public static function selectIdDonHang($userID): array
     {
         $query = DB::makeConnection()
-            ->query("SELECT dh.MaDH FROM users kh join orders dh on kh.ID=dh.MaKH WHERE kh.ID='"
-                . $userID . "'");
-        if (!empty($query)) {
+            ->query("SELECT dh.MaDH FROM users kh join orders dh on kh.ID=dh.MaKH WHERE kh.ID="
+                . $userID );
+        if (!empty($query->num_rows)) {
             foreach ($query->fetch_all() as $id) {
                 $aID[] = $id[0];
             }
         }
-        return !empty($query) ? $aID : [];
+        return !empty($query->num_rows) ? $aID : [];
     }
 
     public static function selectPrintId($id)

@@ -3,6 +3,7 @@
 use MyProject\Core\Request;
 use MyProject\Database\DB;
 use MyProject\Model\OrderModel;
+use MyProject\Model\UserModel;
 
 require_once 'views/HomeShop/Header.php';
 require_once 'views/HomeShop/Menu.php';
@@ -25,6 +26,7 @@ require_once 'views/HomeShop/Slide.php';
                     ?>
                 </h3>
                 <?php
+
                 if (empty($aMaDH = OrderModel::selectIdDonHang($_SESSION['currentUserID']))) {
                     echo "<br>";
                     echo '<div align="center" style="color:#C00;">Bạn Chưa Mua Sản Phẩm Nào</div>';
@@ -32,7 +34,9 @@ require_once 'views/HomeShop/Slide.php';
                     $_SESSION["order"] = $aMaDH;
                 }
                 if (isset($_SESSION["order"])) {
-                    $info = json_decode((\MyProject\Model\UserModel::getUserWithUserID($_SESSION['currentUserID']))['info'],true);
+                    $info
+                        = json_decode((UserModel::getUserWithUserID($_SESSION['currentUserID']))['info'],
+                        true);
 
                     ?>
                     <form id="cart-form" action="" method="POST" style="width: 800px;">
@@ -49,13 +53,14 @@ require_once 'views/HomeShop/Slide.php';
                             $aID = $_SESSION["order"];
                             $aProducts = [];
                             foreach ($aID as $id) {
+                                $maDH=$id;
                                 $aProducts = array_merge($aProducts, OrderModel::selectAll($id));
                             }
 
                             $num = 1;
                             $sum = 0;
                             foreach ($aProducts as $item => $row):
-                                $date=$row[6];
+                                $date = $row[6];
                                 ?>
                                 <tr>
                                     <td class="product-number"><?= $num; ?></td>
@@ -83,14 +88,34 @@ require_once 'views/HomeShop/Slide.php';
                         </div>
                         <hr>
                         <input type="hidden" value="<?= $sum ?>" name="total"/>
-                        <div><label>Thời Gian Nhận: </label><input type="date" name="DiaChi" value="<?=date('Y-m-d',
-                                strtotime($date. ' + 4 days'))?>" disabled/></div>
-                        <?php if ($row[7]=='dangGiao'):?>
-                        <div><label>Đã Nhận Hàng: </label>
-                            <input type="checkbox" name="status" id="da-nhan-hang" <?=isset($info['statusOrder'])?'checked':''?> /></div>
-                            <input type="hidden" id="order-userID" name="userID"
-                                   value="<?=$_SESSION['currentUserID']?>">
-                        <?php endif;?>
+                        <div><label>Thời Gian Nhận: </label><input type="date" name="DiaChi" value="<?= date('Y-m-d',
+                                strtotime($date . ' + 4 days')) ?>" disabled/></div>
+                        <input type="hidden" id="order-MaDH" name="MaDH"
+                               value="<?= $maDH ?>">
+                        <input type="hidden" id="order-userID" name="userID"
+                               value="<?= $_SESSION['currentUserID'] ?>">
+                        <?php
+
+                        switch ($row[7]) {
+                            case 'dangGiao':
+                            case 'daGiao':
+                                ?>
+                                <div><label>Đã Nhận Hàng: </label>
+                                    <input type="checkbox" name="status"
+                                           id="da-nhan-hang" <?= $info['statusOrder'] == 'daGiao' ? 'checked' : ''
+                                    ?> />
+                                </div>
+                                <?php
+                                break;
+                            default:
+                                ?>
+                                <div><label> Xác Nhận Nhận Hàng: </label>
+                                    <input type="checkbox" name="status-order" id="da-xac-nhan-hang" <?= $info['statusOrder'] ==
+                                    'dangGiao' ? 'checked' : '' ?> /></div>
+                                <?php
+                                break;
+                        }
+                        ?>
                         <div><label>Ghi chú: </label><?= $row[5] ?></div>
                     </form>
                     <?php

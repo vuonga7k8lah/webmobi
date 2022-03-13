@@ -275,16 +275,20 @@ class AdminController
     {
         require_once 'views/Admin/Order/listOrder.php';
     }
-    public function handleDelivery(){
-        if (empty($_POST['data'])){
+
+    public function handleDelivery()
+    {
+        if (empty($_POST['data'])) {
             return false;
         }
-        $aData=explode('+',$_POST['data']);
-       $x= OrderModel::updateOrder($aData[1],$aData[0]);
-       var_dump($x);die();
+        $aData = explode('+', $_POST['data']);
+        $x = OrderModel::updateOrder($aData[1], $aData[0]);
+        var_dump($x);
+        die();
         echo "ok";
         die();
     }
+
     public function deleteOrder()
     {
         $id = Request::uri()[1];
@@ -303,10 +307,19 @@ class AdminController
         $id = Request::uri()[1];
         require_once "views/Admin/Order/printOrder.php";
     }
-    public function updateUserInfo(){
-        $userID=$_POST['userID'];
-        $x=UserModel::updateInfo($userID);
-        var_dump($x);die();
+
+    public function updateUserInfo()
+    {
+        $userID = $_POST['userID'];
+        $status = $_POST['status'];
+        $maDH = $_POST['maDH'];
+        $x = UserModel::updateInfo($userID, [
+            'status' => $status,
+            'maDH'   => $maDH
+        ]);
+        OrderModel::updateOrder($maDH, $status);
+        var_dump($x);
+        die();
         echo 'ok';
         die();
     }

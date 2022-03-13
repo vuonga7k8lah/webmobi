@@ -52,6 +52,7 @@ require_once 'views/HomeShop/Slide.php';
                                     array_keys($_SESSION["cart"])) . ")")->fetch_all();
                             $num = 1;
                             $sum = 0;
+
                             foreach ($sp as $item => $row):
 
                                 $url=json_decode($row[6],true)[0];

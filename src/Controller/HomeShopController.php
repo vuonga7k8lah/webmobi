@@ -50,6 +50,7 @@ class HomeShopController
                             unset($data['MaKH']);
                              $adata[]=$data;
                         }
+
                         foreach ($adata as $aItem){
                             CartModel::insertHoaDonphu($aItem);
                         }

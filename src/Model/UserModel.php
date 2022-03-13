@@ -17,7 +17,7 @@ class UserModel
         return [$oCheck->num_rows > 0, $oCheck->fetch_assoc()];
     }
 
-    public static function isUserAdminWithUserId($userID):bool
+    public static function isUserAdminWithUserId($userID): bool
     {
         $query = DB::makeConnection()->query("SELECT * FROM users WHERE ID='" . $userID . "' AND role=2");
         return !empty($query->num_rows);
@@ -47,12 +47,6 @@ class UserModel
         return !empty($query) ? $query->fetch_all() : [];
     }
 
-    public static function getUserWithUserID($id): ?array
-    {
-        $query = DB::makeConnection()->query("SELECT * FROM users WHERE ID = " . $id);
-        return !empty($query) ? $query->fetch_assoc() : [];
-    }
-
     public static function getAddUser($id)
     {
         $oCheck = DB::makeConnection()->query("SELECT id,username,email,password FROM khachhang where id='" . $id .
@@ -64,19 +58,29 @@ class UserModel
     {
         return DB::makeConnection()->query("DELETE FROM users WHERE id='" . $id . "'");
     }
-    public static function updateInfo($id){
+
+    public static function updateInfo($id, $aData)
+    {
         $aUser = self::getUserWithUserID($id);
-        $info=json_decode($aUser['info'],true);
-        $info['statusOrder']='true';
-        return DB::makeConnection()->query("UPDATE `users` SET info='".json_encode($info)."' WHERE ID=" . $id );
+        $info = json_decode($aUser['info'], true);
+        $info['statusOrder'] = $aData['status'];
+        $info['maDH'] = $aData['maDH'];
+        return DB::makeConnection()->query("UPDATE `users` SET info='" . json_encode($info) . "' WHERE ID=" . $id);
     }
+
+    public static function getUserWithUserID($id): ?array
+    {
+        $query = DB::makeConnection()->query("SELECT * FROM users WHERE ID = " . $id);
+        return !empty($query) ? $query->fetch_assoc() : [];
+    }
+
     public static function updateUser($aData)
     {
         $query = [];
         if (!empty($data['sex']) || !empty($data['images'][0])) {
 
             $query[] = " info ='" . json_encode([
-                    'sex' => $data['sex'],
+                    'sex'    => $data['sex'],
                     'avatar' => $data['images'][0]
                 ]) . "'";
         }

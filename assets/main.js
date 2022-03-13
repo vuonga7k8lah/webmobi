@@ -17,13 +17,32 @@ $(document).ready(function () {
         });
 
     });
-    $('#da-nhan-hang').click(function (){
+    $('#da-nhan-hang').click(function () {
         let userID = $('#order-userID').val();
+        let maDH = $('#order-MaDH').val();
         $.ajax({
             type: "post",
             url: "http://127.0.0.1/webmobi/updateInfo",
             data: {
-                "userID": userID
+                "userID": userID,
+                "maDH": maDH,
+                "status": "daGiao"
+            },
+            success: function (response) {
+                location.reload();
+            }
+        });
+    })
+    $('#da-xac-nhan-hang').click(function () {
+        let userID = $('#order-userID').val();
+        let maDH = $('#order-MaDH').val();
+        $.ajax({
+            type: "post",
+            url: "http://127.0.0.1/webmobi/updateInfo",
+            data: {
+                "userID": userID,
+                "maDH": maDH,
+                "status": "dangGiao"
             },
             success: function (response) {
                 location.reload();

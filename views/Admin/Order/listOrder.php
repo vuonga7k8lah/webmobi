@@ -2,6 +2,7 @@
 
 use MyProject\Core\URL;
 use MyProject\Model\OrderModel;
+use MyProject\Model\UserModel;
 
 $row = OrderModel::getAllOrder();
 if (!isset($_SESSION['login_true'])) {
@@ -77,7 +78,7 @@ if (!isset($_SESSION['login_true'])) {
                                     <form action="">
                                         <select id="giaoHang<?= $item[0] ?>" name="selectGiaoHang<?= $item[0] ?>">
                                             <?php foreach ($aDataGiaoHang as $key => $value):?>
-                                                <option value="<?= $key . '+' . $item[0] ?>" <?= $item[6] == $key ?
+                                                <option value="<?= $key . '+1' . $item[0] ?>" <?= $item[6] == $key ?
                                                     'selected' : '' ?>
                                                 ><?= $value ?></option>
                                             <?php endforeach; ?>
