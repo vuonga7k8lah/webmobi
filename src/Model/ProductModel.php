@@ -17,7 +17,7 @@ class ProductModel
     {
         $sql = "SELECT * FROM Product ORDER BY MaSP DESC  LIMIT " . $page . ',' . $limit ;
         $query = DB::makeConnection()->query($sql);
-        return !empty($query) ? $query->fetch_all() : [];
+        return !empty($query->num_rows) ? $query->fetch_all() : [];
     }
 
     public static function getAllCountProducts()

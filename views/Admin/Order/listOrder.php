@@ -12,7 +12,7 @@ if (!isset($_SESSION['login_true'])) {
 //<!-- Navigation -->
     require_once 'views/Admin/navigation.php';
 
-    $row = $_SESSION['data-order'] ?? OrderModel::getAllOrder();
+    $row = OrderModel::getAllOrder();
     $currentDate = date('Y-m-d');
     $from = $_SESSION['from-date'] ?? $currentDate;
     $to = $_SESSION['end-date'] ?? $currentDate;
@@ -78,7 +78,8 @@ if (!isset($_SESSION['login_true'])) {
                                     <form action="">
                                         <select id="giaoHang<?= $item[0] ?>" name="selectGiaoHang<?= $item[0] ?>">
                                             <?php foreach ($aDataGiaoHang as $key => $value):?>
-                                                <option value="<?= $key . '+1' . $item[0] ?>" <?= $item[6] == $key ?
+                                                <option value="<?= $key . '+1' . $item[0] ?>" <?= isset(item[6])&&
+                                                ($item[6] == $key) ?
                                                     'selected' : '' ?>
                                                 ><?= $value ?></option>
                                             <?php endforeach; ?>

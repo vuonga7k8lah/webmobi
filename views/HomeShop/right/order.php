@@ -53,7 +53,7 @@ require_once 'views/HomeShop/Slide.php';
                             $aID = $_SESSION["order"];
                             $aProducts = [];
                             foreach ($aID as $id) {
-                                $maDH=$id;
+                                $maDH = $id;
                                 $aProducts = array_merge($aProducts, OrderModel::selectAll($id));
                             }
 
@@ -110,7 +110,9 @@ require_once 'views/HomeShop/Slide.php';
                             default:
                                 ?>
                                 <div><label> Xác Nhận Nhận Hàng: </label>
-                                    <input type="checkbox" name="status-order" id="da-xac-nhan-hang" <?= $info['statusOrder'] ==
+                                    <input type="checkbox" name="status-order"
+                                           id="da-xac-nhan-hang" <?= isset($info['statusOrder']) &&
+                                    $info['statusOrder'] ==
                                     'dangGiao' ? 'checked' : '' ?> /></div>
                                 <?php
                                 break;
