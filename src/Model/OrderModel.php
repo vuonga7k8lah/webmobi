@@ -44,6 +44,11 @@ class OrderModel
             ->query("SELECT hd.MaDH,kh.username,hd.DiaChi,hd.SDT,hd.total,hd.createDate,hd.status FROM orders hd join users kh on hd.MaKH=kh.ID");
         return !empty($query) ? $query->fetch_all() : [];
     }
+    public static function getAllOrderMe($userID){
+        $query = DB::makeConnection()
+            ->query("SELECT hd.MaDH,kh.username,hd.DiaChi,hd.SDT,hd.total,hd.createDate,hd.status FROM orders hd join users kh on hd.MaKH=kh.ID where kh.ID=".$userID);
+        return !empty($query) ? $query->fetch_all() : [];
+    }
 
     public static function selectIdDonHang($userID): array
     {

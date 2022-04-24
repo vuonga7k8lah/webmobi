@@ -1,6 +1,7 @@
 <?php
 
 use MyProject\Core\Request;
+use MyProject\Core\URL;
 use MyProject\Database\DB;
 use MyProject\Model\OrderModel;
 use MyProject\Model\UserModel;
@@ -34,10 +35,11 @@ require_once 'views/HomeShop/Slide.php';
                     $_SESSION["order"] = $aMaDH;
                 }
                 if (isset($_SESSION["order"])) {
-                    $info
-                        = json_decode((UserModel::getUserWithUserID($_SESSION['currentUserID']))['info'],
-                        true);
-
+                    $orderID = Request::uri()[1]??0;
+                    $aID = $_SESSION["order"];
+                    $currentOrderID=!empty($orderID) ? $orderID : $aID[0];
+                    $idOrderStatus=\MyProject\Model\StatusOrderModel::getIDStatusOrderWithMaKHAndMaDH($_SESSION['currentUserID'],$currentOrderID);
+                    $info = \MyProject\Model\StatusOrderModel::getWithId($idOrderStatus);
                     ?>
                     <form id="cart-form" action="" method="POST" style="width: 800px;">
                         <table>
@@ -50,13 +52,7 @@ require_once 'views/HomeShop/Slide.php';
                                 <th class="total-money">Thành tiền</th>
                             </tr>
                             <?php
-                            $aID = $_SESSION["order"];
-                            $aProducts = [];
-                            foreach ($aID as $id) {
-                                $maDH = $id;
-                                $aProducts = array_merge($aProducts, OrderModel::selectAll($id));
-                            }
-
+                            $aProducts = OrderModel::selectAll($currentOrderID);
                             $num = 1;
                             $sum = 0;
                             foreach ($aProducts as $item => $row):
@@ -91,7 +87,7 @@ require_once 'views/HomeShop/Slide.php';
                         <div><label>Thời Gian Nhận: </label><input type="date" name="DiaChi" value="<?= date('Y-m-d',
                                 strtotime($date . ' + 4 days')) ?>" disabled/></div>
                         <input type="hidden" id="order-MaDH" name="MaDH"
-                               value="<?= $maDH ?>">
+                               value="<?= $currentOrderID ?>">
                         <input type="hidden" id="order-userID" name="userID"
                                value="<?= $_SESSION['currentUserID'] ?>">
                         <?php
@@ -102,7 +98,7 @@ require_once 'views/HomeShop/Slide.php';
                                 ?>
                                 <div><label>Đã Nhận Hàng: </label>
                                     <input type="checkbox" name="status"
-                                           id="da-nhan-hang" <?= $info['statusOrder'] == 'daGiao' ? 'checked' : ''
+                                           id="da-nhan-hang" <?= $info['status'] == 'daGiao' ? 'checked' : ''
                                     ?> />
                                 </div>
                                 <?php
@@ -111,8 +107,8 @@ require_once 'views/HomeShop/Slide.php';
                                 ?>
                                 <div><label> Xác Nhận Nhận Hàng: </label>
                                     <input type="checkbox" name="status-order"
-                                           id="da-xac-nhan-hang" <?= isset($info['statusOrder']) &&
-                                    $info['statusOrder'] ==
+                                           id="da-xac-nhan-hang" <?= isset($info['status']) &&
+                                    $info['status'] ==
                                     'dangGiao' ? 'checked' : '' ?> /></div>
                                 <?php
                                 break;
@@ -120,6 +116,34 @@ require_once 'views/HomeShop/Slide.php';
                         ?>
                         <div><label>Ghi chú: </label><?= $row[5] ?></div>
                     </form>
+                    <div class="col-12 mt-2">
+                        <div class="text-right d-flex justify-content-center">
+                            <ul class="pagination pagination-split mt-0">
+                                <!--                <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span> <span class="sr-only">Previous</span></a></li>-->
+                                <?php
+                                $aOrders = OrderModel::getAllOrderMe($_SESSION['currentUserID']);
+                                $numberProduct = count($aOrders);
+
+                                if (!isset(Request::uri()[1])) {
+                                    $currentID = 1;
+                                } else {
+                                    $currentID = Request::uri()[1] ?: 1;
+                                }
+                                $idOrder=1;
+                                foreach ($aID as $key=>$id): ?>
+                                    <li class="page-item <?= $id == $currentOrderID ? 'active' : '' ?>">
+                                        <a class="page-link"
+                                           href="<?= URL::uri('order') . '/' . $id ?>">
+                                            <?= $idOrder ?>
+                                        </a>
+                                    </li>
+                                <?php
+                                    $idOrder++;
+                                endforeach; ?>
+                                <!--                <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span> <span class="sr-only">Next</span></a></li>-->
+                            </ul>
+                        </div>
+                    </div>
                     <?php
                 }
                 } else {

@@ -9,6 +9,7 @@ use MyProject\Core\Session;
 use MyProject\Core\URL;
 use MyProject\Model\AdminModel;
 use MyProject\Model\OrderModel;
+use MyProject\Model\StatusOrderModel;
 use MyProject\Model\UserModel;
 
 require_once './function/UploadImages.php';
@@ -318,6 +319,21 @@ class AdminController
             'maDH'   => $maDH
         ]);
         OrderModel::updateOrder($maDH, $status);
+        $idStatusOrder=StatusOrderModel::getIDStatusOrderWithMaKHAndMaDH($userID,$maDH);
+        $aData=[
+            'status' => $status
+        ];
+        if ($status=='dangGiao'){
+            $aData=array_merge($aData,[
+                'addDate'=>'abc'
+            ]);
+        }else{
+            $aData=array_merge($aData,[
+                'endDate'=>'abc'
+            ]);
+        }
+
+        StatusOrderModel::update($idStatusOrder,$aData);
         var_dump($x);
         die();
         echo 'ok';

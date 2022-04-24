@@ -89,10 +89,18 @@ require_once 'views/HomeShop/Slide.php';
                         </div>
                         <hr>
                         <input type="hidden" value="<?= $sum ?>" name="total"/>
-
-                        <div><label>Địa Chỉ: </label><input type="text" name="DiaChi" /></div>
-                        <div><label>Số Điện Thoại: </label><input type="text" name="SDT" /></div>
-                        <div><label>Ghi chú: </label><textarea name="note" cols="50" rows="7"></textarea></div>
+                        <?php
+                        if (isset($_SESSION['ErrorCart'])){
+                            ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?=$_SESSION['ErrorCart']?>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                        <div><label>Địa Chỉ: </label><input type="text" name="DiaChi" value="<?=$_SESSION['DiaChi']??''?>"/></div>
+                        <div><label>Số Điện Thoại: </label><input type="text" name="SDT" value="<?=$_SESSION['SDT']??''?>" /></div>
+                        <div><label>Ghi chú: </label><textarea name="note" cols="50" rows="7"><?= $_SESSION['note'] ?? '' ?></textarea></div>
                         <br>
                         <input type="submit"
                                style="display: block;margin: 10px auto"

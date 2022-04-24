@@ -73,7 +73,7 @@ require_once 'views/HomeShop/Slide.php';
     </div>
     <div class="col">
         <?php
-        $spcungloai = ProductModel::getProductWithType($ctsp['MaLoai']);
+        $spcungloai = ProductModel::getProductWithProducer($ctsp['MaNSX']);
         ?>
         <div class="sanphamall" style="height: 758px">
             <p style="color: #e16fdd;padding: 10px;margin-top: 50px;text-align: center;">Sản Phẩm Cùng Nhà Sản Xuất

@@ -49,4 +49,9 @@ class ProductModel
         $query = DB::makeConnection()->query("SELECT * FROM Product WHERE MaLoai=" . $id);
         return !empty($query) ? $query->fetch_all() : [];
     }
+    public static function getProductWithProducer($id): ?array
+    {
+        $query = DB::makeConnection()->query("SELECT * FROM Product WHERE MaNSX=" . $id);
+        return !empty($query) ? $query->fetch_all() : [];
+    }
 }

@@ -53,6 +53,8 @@ if (!isset($_SESSION['login_true'])) {
                             <th style="text-align: center">Tổng Tiền</th>
                             <th style="text-align: center">Trạng Thái</th>
                             <th style="text-align: center">Ngày tạo đơn</th>
+                            <th style="text-align: center">Ngày xác nhận giao</th>
+                            <th style="text-align: center">Ngày dã giao</th>
                             <th style="text-align: center">Delete</th>
                             <th style="text-align: center">In Đơn</th>
                         </tr>
@@ -78,7 +80,7 @@ if (!isset($_SESSION['login_true'])) {
                                     <form action="">
                                         <select id="giaoHang<?= $item[0] ?>" name="selectGiaoHang<?= $item[0] ?>">
                                             <?php foreach ($aDataGiaoHang as $key => $value):?>
-                                                <option value="<?= $key . '+1' . $item[0] ?>" <?= isset(item[6])&&
+                                                <option value="<?= $key . '+1' . $item[0] ?>" <?= isset($item[6])&&
                                                 ($item[6] == $key) ?
                                                     'selected' : '' ?>
                                                 ><?= $value ?></option>
@@ -86,6 +88,8 @@ if (!isset($_SESSION['login_true'])) {
                                         </select>
                                     </form>
                                 </td>
+                                <td><?= $coverDate ?></td>
+                                <td><?= $coverDate ?></td>
                                 <td><?= $coverDate ?></td>
                                 <td class="center">
                                     <i class="fa fa-trash-o  fa-fw"></i>
